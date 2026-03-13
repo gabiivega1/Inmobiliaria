@@ -1,297 +1,199 @@
 /* RESET */
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-
 /* HEADER */
-/* HEADER */
+/* HEADER OSCURO TIPO MÁRMOL */
 header {
-  background-color: #0b1b2b;
-  display: flex;
-  align-items: center;      /* centra verticalmente */
-  justify-content: flex-start; /* logo pegado a la izquierda */
-  height: 100px;            /* altura fija del header */
-  padding: 0 40px;          /* espacio a los lados */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100px;
+    padding: 0 40px;
+    color: white;
+
+    /* imagen de fondo con overlay negro semi-transparente */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../azul.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
-/* LOGO */
+
 header img {
-  max-height: 80px; /* limita la altura del logo */
-  width: auto;      /* mantiene proporciones */
-}
-/* HERO (IMAGEN GRANDE) */
-
-.hero{
-position:relative;
-height:500px;
-}
-.hero::after{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.35);
+    max-height: 100px;
+    width: auto;
 }
 
-.hero img{
-width:100%;
-height:100%;
-object-fit:cover;
+/* HERO */
+.hero {
+    position: relative;
+    height: 500px;
 }
 
-.hero-texto{
-position:absolute;
-top:51%;
-left:50%;
-transform:translate(-50%, -50%);
-text-align:center;
-color:white;
-text-shadow:2px 2px 10px rgba(0,0,0,0.7);
-}
-.hero-texto{
-z-index:2;
-}
-.hero-texto h1{
-font-size:44px;
-margin-bottom:15px;
+.hero::after {
+    content: "";
+    position: absolute;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.35);
 }
 
-.hero-texto p{
-font-size:18px;
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
+.hero-texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    z-index: 2;
+}
+
+.hero-texto h1 {
+    font-size: 44px;
+    margin-bottom: 15px;
+}
+
+.hero-texto p {
+    font-size: 18px;
+}
 
 /* BUSCADOR */
-
-.buscador{
-display:flex;
-justify-content:center;
-margin-top:-120px;
-position:relative;
-z-index:2;
+.buscador {
+    display: flex;
+    justify-content: center;
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
 }
 
-.buscador form{
-background:white;
-padding:20px;
-border-radius:10px;
-
-display:flex;
-align-items:center;
-gap:15px;
-
-box-shadow:0px 10px 25px rgba(0,0,0,0.2);
-}
-.buscador label{
-font-weight:bold;
-font-size:15px;
-color:#333;
-}
-.buscador select,
-.buscador input{
-padding:12px;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:14px;
-min-width:150px;
+.buscador form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
 }
 
-.buscador button{
-background:#c8a96a;
-border:none;
-padding:12px 25px;
-border-radius:6px;
-cursor:pointer;
-font-weight:bold;
-color:white;
-}
-.buscador button:hover{
-background:#b89555;
+.buscador label {
+    font-weight: bold;
+    font-size: 15px;
+    color: #333;
 }
 
-/* PROPIEDADES */
-
-.propiedades{
-padding:70px 60px;
-background-image:url("marmol.jpg");
-background-size:cover;
-background-position:center;
-text-align:center;
+.buscador select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 150px;
 }
 
-.propiedades h2{
-font-size:32px;
-margin-bottom:40px;
+.buscador button {
+    background: #c8a96a;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+.buscador button:hover {
+    background: #b89555;
+}
+
+/* PROPIEDADES DESTACADAS */
+.propiedades {
+    padding: 70px 60px;
+    background-image: url("../MARMOL.jpg");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: white;
+}
+
+.propiedades h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
 }
 
 /* CONTENEDOR CARDS */
-
-.contenedor-propiedades{
-display:grid;
-grid-template-columns:repeat(2, 1fr);
-gap:30px;
-max-width:900px;
-margin:auto;
+.contenedor-propiedades {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 900px;
+    margin: auto;
 }
 
 /* CARD */
-
-
-.propiedad{
-background:white;
-border-radius:10px;
-box-shadow:0px 6px 15px rgba(0,0,0,0.15);
-overflow:hidden;
+.propiedad {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
+    overflow: hidden;
+    color: #333;
 }
 
-.propiedad img{
-width:100%;
-height:200px;
-object-fit:cover;
+.propiedad img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-.propiedad h3{
-padding:10px;
-font-size:20px;
+.propiedad h3 {
+    padding: 10px;
+    font-size: 20px;
 }
 
-.propiedad p{
-padding:0 10px 10px 10px;
-color:#555;
+.propiedad p {
+    padding: 0 10px 10px 10px;
+    color: #555;
 }
 
-.propiedad button{
-margin:10px;
-padding:10px;
-border:none;
-background:#c8a96a;
-color:white;
-border-radius:6px;
-cursor:pointer;
+.propiedad button {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    background: #c8a96a;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-/* Fondo del modal */
-/* Modal */
-.modal {
-  display: none; /* Oculto al inicio */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  position: relative;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 90%;
-  max-height: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* X para cerrar */
-.cerrar {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Carrusel */
-.carrusel {
-  position: relative;
-  width: 100%;
-  max-width: 600px; /* ancho máximo de la imagen */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.carrusel img {
-  width: 100%;
-  height: auto;
-  max-height: 400px; /* altura máxima */
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-/* Flechas */
-.carrusel button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 40px;
-  color: #fff;
-  background: rgba(0,0,0,0.4);
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-}
-
-.carrusel .prev {
-  left: -25px; /* ligeramente fuera de la imagen */
-}
-
-.carrusel .next {
-  right: -25px; /* ligeramente fuera de la imagen */
-}
-
-/* Descripción */
-#descripcion {
-  text-align: center;
-  font-size: 18px;
-  color: #333;
-}
 /* FOOTER */
+/* FOOTER OSCURO TIPO MÁRMOL */
+footer {
+    position: relative;
+    color: white;
+     text-align: left; 
+    padding: 50px 80px;
 
-footer{
-background:#0d1b2a;
-color:white;
-padding:50px 80px;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../azul.jpg");
+    background-size: cover;
+    background-position: center;
+}
+footer h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
 }
 
-.footer-contenido{
-max-width:1000px;
-}
-
-footer h3{
-margin-bottom:20px;
-font-size:22px;
-}
-
-footer p{
-margin:10px 0;
-font-size:16px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-footer i{
-background-color:#0b1b2b;
-font-size:18px;
+footer p {
+    margin: 5px 0;
+    font-size: 16px;
 }
