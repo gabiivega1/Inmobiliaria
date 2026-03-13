@@ -5,21 +5,146 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     
-    <header></header>
-    <main>
-        <div id="Propiedades"></div>
+    <header>
+        <a href="">
+            <img src="ChatGPT Image 12 mar 2026, 19_04_04.png" alt="">
+        </a>
+    </header>
+    <main class="hero">
+        
+<a href="#propiedades">
 
-        <select id="filtroOperacion"></select>
-        <select id="filtroTipo"></select>
-        <select id="filtroBarrio"></select>
-    </main>
+<img src="WhatsApp Image 2026-03-04 at 16.01.31.jpeg" alt="Inmobiliaria">
+
+</a>
+
+<div class="hero-texto">
+
+<h1>Encontrá tu propiedad ideal</h1>
+
+<p>Compra, alquila o invertí en propiedades exclusivas.</p>
+
+</div>
+</main>
+    <section class="buscador">
+
+<form>
+
+<label for="barrio">Elegír barrio:</label>
+
+<select id="barrio">
+<option value=""></option>
+<option value="Nueva Cordoba">Nueva Córdoba</option>
+<option value="General Paz">General Paz</option>
+<option value="Cofico">Cofico</option>
+<option value="Centro">Centro</option>
+
+</select>
+
+<select id="tipoOperacion">
+
+<option value="">Venta</option>
+<option value="venta">Venta</option>
+<option value="alquiler">Alquiler</option>
+<option value="temporal">temporario</option>
+
+</select>
+
+<button type="button" id="btnBuscar">Buscar propiedades</button>
+
+
+</form>
+
+</section>
+
+
+<section class="propiedades" id="propiedades">
+
+<h2>Propiedades destacadas</h2>
+
+<div class="contenedor-propiedades">
+
+
+<div class="propiedad" data-barrio="Nueva Cordoba" data-tipo="venta">
+
+<img src="centro.jpg">
+
+<h3>USD 120.000</h3>
+
+<p>Nueva Córdoba</p>
+
+<p>Departamento 2 dormitorios</p>
+
+ <button class="btn-ver">Ver propiedad</button>
+
+</div>
+
+
+<div class="propiedad" data-barrio="General Paz" data-tipo="alquiler">
+
+<img src="nuevacordoba.jpg">
+
+<h3>$380.000</h3>
+
+<p>General Paz</p>
+
+<p>Departamento 1 dormitorio</p>
+
+ <button class="btn-ver">Ver propiedad</button>
+
+</div>
+<div class="propiedad" data-barrio="Centro" data-tipo="alquiler">
+
+<img src="cen.jpg">
+
+<h3>$880.000</h3>
+
+<p>barrio Centro</p>
+
+<p>Departamento 2 dormitorio</p>
+
+ <button class="btn-ver">Ver propiedad</button>
+
+</div>
+
+
+<div class="propiedad" data-barrio="Cofico" data-tipo="venta">
+
+<img src="cofico.jpg">
+
+<h3>USD 140.000</h3>
+
+<p>Cofico</p>
+
+<p>Casa 3 dormitorios</p>
+
+ <button class="btn-ver">Ver propiedad</button>
+
+</div>
+
+
+</div>
+
+</section>
     <footer>
+        <h3>Vitriol Inmobiliaria</h3>
+
+<p>📍 Córdoba, Argentina</p>
+
+<p>📞 +54 351 1234567</p>
+
+<p>✉ contacto@vitriolinmobiliaria.com</p>
+
+<p>© 2026 Todos los derechos reservados</p>
+
 
     </footer>
+  
+<script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="js/app.js"></script>
 </body>
