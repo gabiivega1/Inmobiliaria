@@ -14,16 +14,12 @@
     <a href="./index.html"><img src="./recursos/ChatGPT Image 12 mar 2026, 19_04_04.png" alt="LOGO"></a>
 </header>
 
-<main>
+<main class="pagina-resultados">
 
-    <section class="hero">
+    <!-- BUSCADOR + FILTROS -->
+    <section class="barra-busqueda">
 
-    <div class="hero-content">
-        
-
-        <div class="buscador">
-
-            <select id="filtroOperacion">
+        <select id="filtroOperacion">
             <option value="">Operación</option>
             </select>
 
@@ -38,19 +34,51 @@
                 <div id="sugerenciasBarrios"></div>
 
             </div>
-        
-            <button id="btnBuscar">Buscar propiedad</button>
-            
+
+    </section>
+
+
+
+    <!-- RESULTADOS -->
+    <section class="seccion-resultados">
+
+        <h2>Propiedades disponibles</h2>
+
+        <div class="grid-propiedades" id="contenedorPropiedades">
+
+            <!-- JS va a generar las cards acá -->
+
+            <!-- ejemplo de card -->
+            <article class="card-propiedad">
+
+                <img src="img/propiedad1.jpg" alt="propiedad">
+
+                <div class="card-info">
+
+                    <h3>Departamento en Nueva Córdoba</h3>
+
+                    <p class="ubicacion">
+                        Nueva Córdoba, Córdoba
+                    </p>
+
+                    <p class="detalles">
+                        2 ambientes · 65 m²
+                    </p>
+
+                    <p class="precio">
+                        $120.000
+                    </p>
+
+                </div>
+
+            </article>
+
         </div>
-    </div>
-    </section>
-
-    <section class="propiedades">
-
-        <div id="Propiedades"></div>
 
     </section>
+
 </main>
+
 
 <footer class="footer">
 
