@@ -113,7 +113,7 @@ async function filtrar(){
     .from('Propiedades')
     .select(`
   *,
-  Barrios (name),
+  Barrios!inner (name),
   Tipos (name),
   Operaciones (name),
   Imagenes!inner (image_url, is_main)

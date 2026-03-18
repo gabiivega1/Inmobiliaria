@@ -457,3 +457,40 @@ font-size:18px;
 .pagina-resultados{
 margin-top:95px; /* altura del header */
 }
+
+/* --- PAGINACIÓN --- */
+.paginacion-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+    grid-column: 1 / -1; /* Para que ocupe todo el ancho de la grilla */
+}
+
+.pagina-activa {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ff6a00; /* Naranja de la foto */
+    background: white;
+    color: black;
+    font-size: 16px;
+    cursor: default;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina-inactiva {
+    background: none;
+    border: none;
+    color: #5a7b8c; /* Azul grisáceo de la foto */
+    text-decoration: underline;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.pagina-inactiva:hover {
+    color: #000;
+}
