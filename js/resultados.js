@@ -4,7 +4,7 @@ const supabaseClient = window.supabase.createClient(
 );
 
 let paginaActual = 1;
-const cantidadPorPagina = 6;
+const cantidadPorPagina = 2;
 
 async function inicializarFiltros() {
   const { data: operaciones } = await supabaseClient.from('Operaciones').select('*');
@@ -114,6 +114,10 @@ function mostrarResultados(propiedades) {
     contenedor.innerHTML += card;
   });
 }
+
+window.verPropiedad = function(id) {
+    window.location.href = `propiedades.html?id=${id}`;
+};
 
 function renderizarPaginacion(totalItems) {
   const contenedor = document.getElementById("contenedorPaginacion");
