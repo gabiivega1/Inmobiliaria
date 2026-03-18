@@ -1,72 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Propiedad - Vitriol Inmobiliaria</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/propiedades.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
+<a href="https://wa.me/5493510000000" 
+class="whatsapp-float" 
+target="_blank">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+
+</a>
 
 <body>
 
     <header class="navbar">
-        <a href="./index.html"><img src="./recursos/ChatGPT Image 12 mar 2026, 19_04_04.png" alt="LOGO"></a>
+        <a href="./index.html"><img src="./recursos/Logo de VITRIOL Inmobiliaria en oro.png" alt="LOGO"></a>
     </header>
 
-    <main>
-        <div id="detallePropiedad">
-            <div id="carruselImagenes"></div>
-            <div id="infoPropiedad"></div>
+    <main class="pagina-detalle">
+
+        <!-- LOADING -->
+        <div id="loading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Cargando propiedad...</p>
         </div>
+
+        <!-- ERROR -->
+        <div id="error" class="error-state" style="display:none;">
+            <h2>Propiedad no encontrada</h2>
+            <p>La propiedad que buscás no existe o fue eliminada.</p>
+            <a href="./index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+
+        <!-- CONTENIDO -->
+        <div id="contenidoDetalle" style="display:none;">
+
+            <!-- BREADCRUMB -->
+            <div class="breadcrumb">
+                <a href="./index.html">Inicio</a>
+                <span>/</span>
+                <a href="./resultados.html">Propiedades</a>
+                <span>/</span>
+                <span id="breadcrumbTitulo">Detalle</span>
+            </div>
+
+            <!-- GALERIA -->
+            <div class="galeria">
+                <div class="galeria-principal">
+                    <img id="imagenPrincipal" src="" alt="Imagen principal">
+                    <button class="galeria-nav prev" onclick="cambiarImagen(-1)">&#8249;</button>
+                    <button class="galeria-nav next" onclick="cambiarImagen(1)">&#8250;</button>
+                    <div class="galeria-contador">
+                        <span id="contadorActual">1</span> / <span id="contadorTotal">1</span>
+                    </div>
+                </div>
+                <div class="galeria-thumbnails" id="galeriaThumbs"></div>
+            </div>
+
+            <!-- DETALLE PRINCIPAL -->
+            <div class="detalle-container">
+
+                <div class="detalle-izq">
+
+                    <!-- HEADER INFO -->
+                    <div class="detalle-header">
+                        <div class="detalle-tags">
+                            <span class="tag-operacion" id="tagOperacion"></span>
+                            <span class="tag-tipo" id="tagTipo"></span>
+                        </div>
+                        <h1 id="detalleTitulo"></h1>
+                        <p class="detalle-barrio">
+                            <span class="icono-pin">📍</span>
+                            <span id="detalleBarrio"></span>
+                        </p>
+                        <p class="detalle-precio" id="detallePrecio"></p>
+                    </div>
+
+                    <!-- CARACTERISTICAS -->
+                    <div class="caracteristicas">
+                        <h2>Características</h2>
+                        <div class="caract-grid">
+                            <div class="caract-item" id="itemDormitorios">
+                                <span class="caract-icon">🛏️</span>
+                                <div>
+                                    <span class="caract-valor" id="cantDormitorios"></span>
+                                    <span class="caract-label">Dormitorios</span>
+                                </div>
+                            </div>
+                            <div class="caract-item" id="itemBanos">
+                                <span class="caract-icon">🚿</span>
+                                <div>
+                                    <span class="caract-valor" id="cantBanos"></span>
+                                    <span class="caract-label">Baños</span>
+                                </div>
+                            </div>
+                            <div class="caract-item" id="itemMetros">
+                                <span class="caract-icon">📐</span>
+                                <div>
+                                    <span class="caract-valor" id="cantMetros"></span>
+                                    <span class="caract-label">m² cubiertos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DESCRIPCION -->
+                    <div class="descripcion-seccion">
+                        <h2>Descripción</h2>
+                        <p id="detalleDescripcion" class="descripcion-texto"></p>
+                    </div>
+
+                </div>
+
+                <!-- SIDEBAR CONTACTO -->
+                <aside class="detalle-sidebar">
+                    <div class="sidebar-card">
+                        <h3>¿Te interesa esta propiedad?</h3>
+                        <p class="sidebar-subtitulo">Completá tus datos y te contactamos a la brevedad.</p>
+
+                        <div class="form-grupo">
+                            <label>Nombre</label>
+                            <input type="text" id="contactoNombre" placeholder="Tu nombre">
+                        </div>
+                        <div class="form-grupo">
+                            <label>Teléfono</label>
+                            <input type="tel" id="contactoTelefono" placeholder="351 000 0000">
+                        </div>
+                        <div class="form-grupo">
+                            <label>Email</label>
+                            <input type="email" id="contactoEmail" placeholder="tu@email.com">
+                        </div>
+                        <div class="form-grupo">
+                            <label>Mensaje</label>
+                            <textarea id="contactoMensaje" rows="3" placeholder="Quiero más información sobre esta propiedad..."></textarea>
+                        </div>
+
+                        <button class="btn-consultar" onclick="enviarConsulta()">Enviar consulta</button>
+
+                        <div class="sidebar-divider">o contactanos por</div>
+
+                        <a class="btn-whatsapp" id="btnWhatsapp" href="#" target="_blank">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            WhatsApp
+                        </a>
+
+                        <div id="mensajeExito" class="mensaje-exito" style="display:none;">
+                            ✅ ¡Consulta enviada! Te contactamos pronto.
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+
+        </div>
+
     </main>
 
-
     <footer class="footer">
-
         <div class="footer-container">
-
             <div class="footer-logo">
                 <img src="./recursos/ChatGPT Image 12 mar 2026, 19_04_04.png" alt="Vitriol">
             </div>
-
             <div class="footer-info">
-
                 <div class="info-item">
                     <span class="icon">📍</span>
                     <p>Av Falsa 123, Córdoba</p>
                 </div>
-
                 <div class="info-item">
                     <span class="icon">📞</span>
                     <p>351 555 5555</p>
                 </div>
-
                 <div class="info-item">
                     <span class="icon">💬</span>
                     <p>351 555 5555</p>
                 </div>
-
             </div>
-
         </div>
-
         <div class="footer-bottom">
-
             <p>www.vitriol.com</p>
-
             <div class="footer-redes">
                 <span>f</span>
                 <span>📷</span>
             </div>
-
         </div>
-
     </footer>
 
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="module" src="js/app.js"></script>
-</body>
+    <script type="module" src="./js/propiedades.js"></script>
 
+</body>
 </html>
