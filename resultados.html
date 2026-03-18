@@ -1,129 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vitriol Inmobiliaria</title>
-<link rel="stylesheet" href="./css/styles.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados - Vitriol Inmobiliaria</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
-<header class="navbar">
-    <a href="./index.html"><img src="./recursos/ChatGPT Image 12 mar 2026, 19_04_04.png" alt="LOGO"></a>
-</header>
+    <header class="navbar">
+        <a href="./index.html"><img src="./recursos/ChatGPT Image 12 mar 2026, 19_04_04.png" alt="LOGO"></a>
+    </header>
 
-<main class="pagina-resultados">
+    <main class="pagina-resultados">
+        <section class="seccion-resultados">
+            <h2>Propiedades disponibles</h2>
 
-    <!-- BUSCADOR + FILTROS -->
-    <section class="barra-busqueda">
+            <div class="barra-busqueda">
+                <select id="filtroOperacion">
+                    <option value="">Operación</option>
+                </select>
 
-        <select id="filtroOperacion">
-            <option value="">Operación</option>
-            </select>
+                <select id="filtroTipo">
+                    <option value="">Tipo</option>
+                </select>
 
-            <select id="filtroTipo">
-            <option value="">Tipo</option>
-            </select> 
-            
-            <div class="buscador-barrio">
+                <input type="text" id="filtroBarrio" placeholder="Buscar barrio">
+                <button id="btnBuscarResultados">Buscar</button>
+            </div>
 
-                <input type="text" id="filtroBarrio" placeholder="Buscar barrio" autocomplete="off">
+            <div id="contenedorResultados" class="grid-propiedades"></div>
 
-                <div id="sugerenciasBarrios"></div>
+            <div style="text-align: center; margin-top: 40px;">
+                <button type="button" id="btnMostrarMas"
+                    style="background:#1d72b8; color:white; border:none; padding:12px 20px; border-radius:6px; font-weight:bold; cursor:pointer; display:none;">
+                    Mostrar más ...
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-logo">
+                <img src="./recursos/ChatGPT Image 12 mar 2026, 19_04_04.png" alt="Vitriol">
+            </div>
+
+            <div class="footer-info">
+
+                <div class="info-item">
+                    <span class="icon">📍</span>
+                    <p>Av Falsa 123, Córdoba</p>
+                </div>
+
+                <div class="info-item">
+                    <span class="icon">📞</span>
+                    <p>351 555 5555</p>
+                </div>
+
+                <div class="info-item">
+                    <span class="icon">💬</span>
+                    <p>351 555 5555</p>
+                </div>
 
             </div>
 
-    </section>
+        </div>
 
+        <div class="footer-bottom">
 
+            <p>www.vitriol.com</p>
 
-    <!-- RESULTADOS -->
-    <section class="seccion-resultados">
-
-        <h2>Propiedades disponibles</h2>
-
-        <div class="grid-propiedades" id="contenedorPropiedades">
-
-            <!-- JS va a generar las cards acá -->
-
-            <!-- ejemplo de card -->
-            <article class="card-propiedad">
-
-                <img src="img/propiedad1.jpg" alt="propiedad">
-
-                <div class="card-info">
-
-                    <h3>Departamento en Nueva Córdoba</h3>
-
-                    <p class="ubicacion">
-                        Nueva Córdoba, Córdoba
-                    </p>
-
-                    <p class="detalles">
-                        2 ambientes · 65 m²
-                    </p>
-
-                    <p class="precio">
-                        $120.000
-                    </p>
-
-                </div>
-
-            </article>
+            <div class="footer-redes">
+                <span>f</span>
+                <span>📷</span>
+            </div>
 
         </div>
 
-    </section>
+    </footer>
 
-</main>
-
-
-<footer class="footer">
-
-<div class="footer-container">
-
-<div class="footer-logo">
-<img src="./recursos/ChatGPT Image 12 mar 2026, 19_04_04.png" alt="Vitriol">
-</div>
-
-<div class="footer-info">
-
-<div class="info-item">
-<span class="icon">📍</span>
-<p>Av Falsa 123, Córdoba</p>
-</div>
-
-<div class="info-item">
-<span class="icon">📞</span>
-<p>351 555 5555</p>
-</div>
-
-<div class="info-item">
-<span class="icon">💬</span>
-<p>351 555 5555</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="footer-bottom">
-
-<p>www.vitriol.com</p>
-
-<div class="footer-redes">
-<span>f</span>
-<span>📷</span>
-</div>
-
-</div>
-
-</footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script type="module" src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="./js/prueba.js"></script>
 </body>
+
 </html>

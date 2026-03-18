@@ -65,5 +65,4 @@ async function cargarPropiedad(){
 
 }
 
-
 cargarPropiedad()
