@@ -25,11 +25,11 @@
 
   /* Sección clara (propiedades destacadas index) */
   --stone:         #f0ebe2;
-  --stone-card:    #ffffff;
-  --stone-border:  #e0d8cc;
+  --stone-card:    #ffffff00;
+  --stone-border:  #0000003a;
   --text-dark:     #1a1a1a;
-  --text-mid:      #4a4540;
-  --text-sub:      #7a7268;
+  --text-mid:      #ffffff;
+  --text-sub:      #030303;
 }
 
 /* ── Reset ─────────────────────────────────────────────── */
@@ -207,6 +207,7 @@ footer {
   z-index: 3;
   max-width: 700px;
   padding: 0 24px;
+  margin-top: 250px;
 }
 
 .hero-content h1 {
@@ -232,9 +233,9 @@ footer {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(10, 22, 40, 0.85);
+  background-image: url(../recursos/WhatsApp\ Image\ 2026-03-18\ at\ 4.52.56\ PM.jpeg);
+  /*background: rgba(10, 22, 40, 0.85);*/
   border: 1px solid var(--navy-border);
-  border-top: 2px solid var(--gold);
   padding: 12px 14px;
   border-radius: var(--radius);
   backdrop-filter: blur(12px);
@@ -244,7 +245,7 @@ footer {
 
 .buscador select,
 .buscador input {
-  background: var(--navy-mid);
+  background: rgba(255, 255, 255, 0);
   border: 1px solid var(--navy-border);
   border-radius: var(--radius-sm);
   color: var(--text);
@@ -253,6 +254,9 @@ footer {
   outline: none;
   transition: border-color var(--transition);
   min-width: 130px;
+}
+.buscador select {
+  color: black;
 }
 
 .buscador select:focus,
@@ -271,7 +275,13 @@ footer {
 
 .buscador button,
 #btnBuscar {
-  background: var(--gold);
+  background: linear-gradient(
+  180deg,
+  #f5c24a,
+  #e0a82e,
+  #c88b1a
+);
+filter: brightness(0.7);
   color: var(--navy);
   border: none;
   padding: 10px 24px;
@@ -298,7 +308,7 @@ footer {
 #filtroBarrio {
   width: 100%;
   padding: 10px 14px;
-  background: var(--navy-mid);
+  background: rgba(255, 255, 255, 0);
   border: 1px solid var(--navy-border);
   border-radius: var(--radius-sm);
   color: var(--text);
@@ -313,7 +323,7 @@ footer {
 
 #filtroBarrio::placeholder,
 #filtroBarrio {
-  color: var(--text);
+  color: black;
 }
 
 #sugerenciasBarrios {
@@ -322,9 +332,6 @@ footer {
   left: 0;
   width: 100%;
   background: var(--navy-card);
-  border: 1px solid var(--navy-border);
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
   z-index: 50;
   overflow: hidden;
 }
@@ -351,6 +358,7 @@ footer {
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  
 }
 
 .propiedades::before {
@@ -373,10 +381,9 @@ footer {
 }
 
 #Propiedades {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  flex-wrap: wrap;
-  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -410,32 +417,51 @@ footer {
 }
 
 .card-info {
-  padding: 18px 18px 20px;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.4;
 }
 
+/* PRECIO */
 .card-info h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  color: var(--gold-dark, #9a7530);
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
   margin-bottom: 6px;
 }
 
-.card-info p {
-  font-size: 13px;
-  color: var(--text-sub);
+/* UBICACIÓN */
+.card-info p:nth-child(2) {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
   margin-bottom: 4px;
 }
 
+/* DETALLES */
+.card-info p:nth-child(3) {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 8px;
+}
+
 .card button {
-  background: var(--gold);
+  background: linear-gradient(
+  180deg,
+  #f5c24a,
+  #e0a82e,
+  #c88b1a
+);
+filter: brightness(0.9);
   color: var(--navy);
   border: none;
-  padding: 9px 0;
+  padding: 10px 0;
   border-radius: var(--radius-sm);
   width: 100%;
-  margin-top: 14px;
-  font-size: 13px;
-  font-weight: 700;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
   letter-spacing: 0.3px;
   transition: background var(--transition);
 }

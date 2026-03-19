@@ -17,7 +17,7 @@ async function cargarPropiedades() {
     Imagenes!inner (image_url, is_main)
   `)
   .eq('destacada', true)
-  .limit(6)
+  .limit(12)
   
     
   console.log(data)
@@ -29,6 +29,15 @@ async function cargarPropiedades() {
 
   mostrarPropiedades(data)
 
+}
+
+function optimizarImagen(url){
+
+  if(url.includes("?")){
+    return url + "&w=800&q=70&auto=format"
+  }
+
+  return url + "?w=800&q=70&auto=format"
 }
 
 function mostrarPropiedades(propiedades){
@@ -44,7 +53,7 @@ function mostrarPropiedades(propiedades){
 const card = `
 <div class="card" onclick="verPropiedad(${propiedad.id})">
 
-<img src="${imagenPrincipal.image_url}">
+<img src="${optimizarImagen(imagenPrincipal.image_url)}" loading="lazy">
 
 <div class="card-info">
 
@@ -65,6 +74,10 @@ const card = `
   })
 
 }
+
+
+
+
 
 
 async function cargarFiltros() {
