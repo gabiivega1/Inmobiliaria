@@ -289,7 +289,8 @@ footer {
   #e0a82e,
   #c88b1a
 );
-filter: brightness(0.7);
+background-image: url(../recursos/O5GLM70.jpg);
+filter: brightness(1);
   color: var(--navy);
   border: none;
   padding: 10px 24px;
@@ -388,12 +389,20 @@ filter: brightness(0.7);
   margin-bottom: 48px;
 }
 
-#Propiedades {
+/* Desliza */
+
+ #Propiedades {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
+  overflow: hidden;
+  transition: max-height .6s ease;
+} 
+
+#Propiedades.expandido{
+  max-height: 2000px;
 }
 
 /* Card - index */
@@ -455,13 +464,8 @@ filter: brightness(0.7);
 }
 
 .card button {
-  background: linear-gradient(
-  180deg,
-  #f5c24a,
-  #e0a82e,
-  #c88b1a
-);
-filter: brightness(0.9);
+  background-image: url(../recursos/O5GLM70.jpg);
+filter: brightness(1);
   color: var(--navy);
   border: none;
   padding: 10px 0;
@@ -836,4 +840,26 @@ filter: brightness(0.9);
   .barra-busqueda { flex-direction: column; }
   .seccion-resultados > h2 { font-size: 24px; }
   .pagina-resultados { padding-bottom: 0; }
+}
+
+.ver-mas-container{
+  width:100%;
+  text-align:center;
+  margin-top:40px;
+}
+
+#btnVerMas{
+  background:var(--gold);
+  color:var(--navy);
+  border:none;
+  padding:12px 28px;
+  border-radius:6px;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+#btnVerMas:hover{
+  background:var(--gold-light);
 }
