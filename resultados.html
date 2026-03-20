@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados - Vitriol Inmobiliaria</title>
-    <!-- <link rel="stylesheet" href="./css/styles.css"> -->
     <link rel="stylesheet" href="./css/index.css">
 </head>
 
@@ -22,11 +21,18 @@
             <img src="./recursos/Logo de VITRIOL Inmobiliaria en oro.png" alt="LOGO">
         </a>
 
-        <nav class="navbar-links">
+        <button class="menuBtn" id="id_menuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="navbar-links" id="id_menuNav">
             <a href="./index.html">Inicio</a>
             <a href="./resultados.html">Propiedades</a>
         </nav>
     </header>
+    <div class="menuOverlay" id="id_menuOverlay"></div>
 
     <main class="pagina-resultados">
 
@@ -135,7 +141,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="./js/resultados.js"></script>
-
+    <script type="module" src="./js/menu.js"></script>
 </body>
 
 </html>

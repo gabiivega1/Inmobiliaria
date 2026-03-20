@@ -133,7 +133,7 @@ footer {
 
 .navbar-links a {
   height: auto;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -829,6 +829,42 @@ filter: brightness(1);
   fill: currentColor;
 }
 
+/* ========== BOTÓN HAMBURGUESA ========== */
+.menuBtn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 102;
+    position: relative;
+}
+
+.menuBtn span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.menuBtn.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.menuBtn.active span:nth-child(2) { opacity: 0; }
+.menuBtn.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+.menuOverlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 98;
+}
+
+.menuOverlay.active { display: block; }
+
 /* ── Responsive ────────────────────────────────────────── */
 @media (max-width: 900px) {
   .navbar { padding: 0 24px; height: 72px; }
@@ -917,4 +953,67 @@ filter: brightness(1);
   font-weight:500;
   padding:70px 0;
   letter-spacing:.3px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+
+    .menuBtn { display: block; }
+    
+    .menuBtn span {
+        background-color: var(--gold);
+    }
+
+    .navbar-links {
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 320px;
+        height: 100vh;
+        
+        /* 1. Fondo más claro (usamos un tono azul como el de tus tarjetas) */
+        background: rgba(17, 31, 53, 0.98); 
+        backdrop-filter: blur(10px); 
+        border-left: 1px solid rgba(201,168,76,0.15); 
+        
+        padding-top: 100px;
+        transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 99;
+        box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
+        flex-direction: column;
+        
+        /* 2. Alineamos el contenedor a la izquierda y sacamos el gap para que las líneas se unan bien */
+        align-items: flex-start; 
+        gap: 0; 
+    }
+
+    .navbar-links.active { right: 0; }
+
+    .navbar-links a {
+        display: block;
+        padding: 22px 30px; 
+        font-size: 16px;
+        width: 100%;
+        
+        /* 3. Texto a la izquierda y línea dorada restaurada */
+        text-align: left; 
+        color: var(--gold);
+        border-bottom: 1px solid rgba(201,168,76,0.2); 
+        letter-spacing: 3px;
+        font-weight: 500;
+        transition: color 0.3s, background 0.3s;
+    }
+
+    /* Efecto sutil al tocar un link */
+    .navbar-links a:hover {
+        color: var(--gold-light);
+        background: rgba(201,168,76,0.05); 
+    }
+
+    /* Le sacamos la línea al último link para que quede prolijo */
+    .navbar-links a:last-child {
+        border-bottom: none;
+    }
 }
