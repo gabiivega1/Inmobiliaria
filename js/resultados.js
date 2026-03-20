@@ -30,14 +30,23 @@ async function inicializarFiltros() {
 }
 
 async function cargarResultados(resetearPagina = false) {
+
+  const contenedor = document.getElementById("contenedorResultados");
+
+  // Mostrar loading en lugar de las cards
+  contenedor.innerHTML = `
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando propiedades...</p>
+    </div>
+  `;
+
   if (resetearPagina) {
     paginaActual = 1;
   }
 
   const inicioRango = (paginaActual - 1) * cantidadPorPagina;
   const finRango = inicioRango + cantidadPorPagina - 1;
-
-  document.getElementById("contenedorResultados").innerHTML = "";
 
   const operacion = document.getElementById("filtroOperacion").value;
   const tipo = document.getElementById("filtroTipo").value;
@@ -50,12 +59,12 @@ async function cargarResultados(resetearPagina = false) {
   let query = supabaseClient
     .from('Propiedades')
     .select(`
-            *,
-            Barrios!inner (name),
-            Tipos (name),
-            Operaciones (name),
-            Imagenes!inner (image_url, is_main)
-        `, { count: 'exact' });
+      *,
+      Barrios!inner (name),
+      Tipos (name),
+      Operaciones (name),
+      Imagenes!inner (image_url, is_main)
+    `, { count: 'exact' });
 
   if (operacion) query = query.eq('Operaciones_id', operacion);
   if (tipo) query = query.eq('Tipos_id', tipo);
@@ -71,11 +80,14 @@ async function cargarResultados(resetearPagina = false) {
 
   if (error) {
     console.log("Error cargando resultados:", error);
+    contenedor.innerHTML = "<p>Error cargando propiedades.</p>";
     return;
   }
 
-  mostrarResultados(data);
+  // Mostrar cards
+  contenedor.innerHTML = "";
 
+  mostrarResultados(data);
   renderizarPaginacion(count);
 }
 
@@ -86,7 +98,7 @@ function mostrarResultados(propiedades) {
   const contenedor = document.getElementById("contenedorResultados");
 
   if (propiedades.length === 0) {
-    contenedor.innerHTML = "<p style='grid-column: 1 / -1; text-align: center;'>No hay propiedades disponibles con esos filtros.</p>";
+    contenedor.innerHTML = `<p class="sin-resultados">No hay propiedades disponibles con esos filtros.</p>`;
     return;
   }
 
