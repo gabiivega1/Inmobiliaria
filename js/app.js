@@ -40,20 +40,33 @@ function optimizarImagen(url){
   return url + "?w=800&q=70&auto=format"
 }
 
+let propiedadesGlobal = []
+let mostrandoTodas = false
+
+
+
 function mostrarPropiedades(propiedades){
+
+  propiedadesGlobal = propiedades
+
+  renderPropiedades()
+
+}
+
+function renderPropiedades(){
 
   const contenedor = document.getElementById("Propiedades")
 
   contenedor.innerHTML = ""
 
-  propiedades.forEach(propiedad => {
+  propiedadesGlobal.forEach(propiedad => {
 
-  const imagenPrincipal = propiedad.Imagenes.find(img => img.is_main)
+    const imagenPrincipal = propiedad.Imagenes.find(img => img.is_main)
 
-const card = `
+    const card = `
 <div class="card" onclick="verPropiedad(${propiedad.id})">
 
-<img src="${optimizarImagen(imagenPrincipal.image_url)}" loading="lazy">
+<img src="${optimizarImagen(imagenPrincipal.image_url)}">
 
 <div class="card-info">
 
@@ -71,11 +84,49 @@ const card = `
 `
 
     contenedor.innerHTML += card
+
   })
+
+  setTimeout(ajustarAlturaInicial, 50)
 
 }
 
+const btnVerMas = document.getElementById("btnVerMas")
 
+btnVerMas.addEventListener("click", () => {
+
+  const contenedor = document.getElementById("Propiedades")
+
+  if(contenedor.classList.contains("expandido")){
+
+    contenedor.classList.remove("expandido")
+    ajustarAlturaInicial()
+    btnVerMas.textContent = "Ver más propiedades"
+
+  }else{
+
+    contenedor.classList.add("expandido")
+    contenedor.style.maxHeight = contenedor.scrollHeight + "px"
+    btnVerMas.textContent = "Ver menos propiedades"
+
+  }
+
+})
+
+
+function ajustarAlturaInicial(){
+
+  const contenedor = document.getElementById("Propiedades")
+  const card = contenedor.querySelector(".card")
+
+  if(!card) return
+
+  const alturaCard = card.offsetHeight
+  const gap = 24
+
+  contenedor.style.maxHeight = (alturaCard + gap) + "px"
+
+}
 
 
 

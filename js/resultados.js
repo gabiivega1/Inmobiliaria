@@ -79,6 +79,9 @@ async function cargarResultados(resetearPagina = false) {
   renderizarPaginacion(count);
 }
 
+
+function optimizarImagen(url){ if(url.includes("?")){ return url + "&w=800&q=70&auto=format" } return url + "?w=800&q=70&auto=format" }
+
 function mostrarResultados(propiedades) {
   const contenedor = document.getElementById("contenedorResultados");
 
@@ -89,10 +92,13 @@ function mostrarResultados(propiedades) {
 
   propiedades.forEach(propiedad => {
     let imagenUrl = 'https://via.placeholder.com/300x200?text=Sin+Imagen';
-    if (propiedad.Imagenes && propiedad.Imagenes.length > 0) {
-      const imagenPrincipal = propiedad.Imagenes.find(img => img.is_main);
-      imagenUrl = imagenPrincipal ? imagenPrincipal.image_url : propiedad.Imagenes[0].image_url;
-    }
+
+if (propiedad.Imagenes && propiedad.Imagenes.length > 0) {
+  const imagenPrincipal = propiedad.Imagenes.find(img => img.is_main);
+  const urlOriginal = imagenPrincipal ? imagenPrincipal.image_url : propiedad.Imagenes[0].image_url;
+
+  imagenUrl = optimizarImagen(urlOriginal);
+}
 
     const nombreTipo = propiedad.Tipos ? propiedad.Tipos.name : 'N/A';
     const nombreOperacion = propiedad.Operaciones ? propiedad.Operaciones.name : 'N/A';
@@ -114,6 +120,10 @@ function mostrarResultados(propiedades) {
     contenedor.innerHTML += card;
   });
 }
+
+
+
+
 
 window.verPropiedad = function(id) {
     window.location.href = `propiedades.html?id=${id}`;
