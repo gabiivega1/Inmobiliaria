@@ -4,7 +4,7 @@ const supabaseClient = window.supabase.createClient(
 );
 
 let paginaActual = 1;
-const cantidadPorPagina = 2;
+const cantidadPorPagina = 9;
 
 async function inicializarFiltros() {
   const { data: operaciones } = await supabaseClient.from('Operaciones').select('*');

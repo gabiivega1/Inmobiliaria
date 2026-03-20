@@ -40,7 +40,7 @@
 }
 
 html, body {
-  height: 100%;
+  min-height: 100vh;
 }
 
 body {
@@ -52,6 +52,14 @@ body {
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Body claro para páginas con fondo mármol */
+body.pagina-clara {
+  background-image: url("../recursos/WhatsApp Image 2026-03-18 at 4.52.56 PM.jpeg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -382,7 +390,7 @@ filter: brightness(0.7);
 
 #Propiedades {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
@@ -394,7 +402,7 @@ filter: brightness(0.7);
   border: 1px solid var(--stone-border);
   border-radius: var(--radius);
   overflow: hidden;
-  width: 300px;
+  width: 100%;
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
@@ -472,22 +480,24 @@ filter: brightness(0.9);
 
 /* ── Página Resultados ─────────────────────────────────── */
 .pagina-resultados {
+  width: 100%;
+  min-height: calc(100vh - 88px);
+  padding-bottom: 72px;
+}
+
+.seccion-resultados {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 24px 72px;
-  margin-top: 95px;
+  padding: 48px 32px 72px;
+  position: relative;
 }
 
 .seccion-resultados > h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  color: var(--white);
-  margin-bottom: 28px;
-}
-
-/* Hero banner resultados */
-.seccion-resultados {
-  position: relative;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 32px;
 }
 
 /* Barra búsqueda resultados */
@@ -496,19 +506,21 @@ filter: brightness(0.9);
   gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 40px;
-  background: var(--navy-card);
-  border: 1px solid var(--navy-border);
+  background: var(--stone-card);
+  border: 1px solid var(--stone-border);
   border-top: 2px solid var(--gold);
   border-radius: var(--radius);
   padding: 16px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
 .barra-busqueda input,
 .barra-busqueda select {
-  background: var(--navy-mid);
-  border: 1px solid var(--navy-border);
+  background: transparent;
+  border: 1px solid var(--stone-border);
   border-radius: var(--radius-sm);
-  color: var(--text);
+  color: var(--text-dark);
   padding: 10px 14px;
   font-size: 14px;
   outline: none;
@@ -523,7 +535,7 @@ filter: brightness(0.9);
 }
 
 .barra-busqueda input::placeholder {
-  color: var(--text-muted);
+  color: var(--text-sub);
 }
 
 .barra-busqueda select option {
@@ -535,15 +547,17 @@ filter: brightness(0.9);
   padding: 10px 20px;
   border: none;
   border-radius: var(--radius-sm);
-  background: var(--gold);
+  background: linear-gradient(180deg, #f5c24a, #e0a82e, #c88b1a);
+  filter: brightness(0.9);
   color: var(--navy);
   font-weight: 700;
   font-size: 14px;
-  transition: background var(--transition);
+  transition: filter var(--transition), transform 0.1s;
 }
 
 .barra-busqueda button:hover {
-  background: var(--gold-light);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 /* Grid resultados */
@@ -555,18 +569,19 @@ filter: brightness(0.9);
 
 /* Card resultados */
 .card-propiedad {
-  background: var(--navy-card);
-  border: 1px solid var(--navy-border);
+  background: var(--stone-card);
+  border: 1px solid var(--stone-border);
   border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
 
 .card-propiedad:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 48px rgba(0,0,0,0.4);
-  border-color: rgba(201,168,76,0.45);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.13);
+  border-color: rgba(201,168,76,0.55);
 }
 
 .card-propiedad img {
@@ -586,21 +601,44 @@ filter: brightness(0.9);
 
 .card-propiedad .precio {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  color: var(--gold);
+  font-size: 22px;
+  color: var(--gold-dark, #9a7530);
   margin-bottom: 6px;
   font-weight: 700;
 }
 
 .card-propiedad .detalles {
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--text-sub);
   margin-bottom: 4px;
 }
 
 .card-propiedad .ubicacion {
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* Botón Ver propiedad en resultados */
+.card-propiedad button,
+.card-propiedad .btn-ver {
+  background: linear-gradient(180deg, #f5c24a, #e0a82e, #c88b1a);
+  filter: brightness(0.9);
+  color: var(--navy);
+  border: none;
+  padding: 10px 0;
+  border-radius: var(--radius-sm);
+  width: 100%;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter var(--transition);
+}
+
+.card-propiedad button:hover,
+.card-propiedad .btn-ver:hover {
+  filter: brightness(1.05);
 }
 
 /* ── Paginación ────────────────────────────────────────── */
@@ -618,7 +656,7 @@ filter: brightness(0.9);
   border-radius: 50%;
   border: 2px solid var(--gold);
   background: var(--gold-dim);
-  color: var(--gold-light);
+  color: var(--gold-dark, #9a7530);
   font-size: 15px;
   font-weight: 600;
   display: flex;
@@ -628,9 +666,9 @@ filter: brightness(0.9);
 }
 
 .pagina-inactiva {
-  background: none;
-  border: 1px solid var(--navy-border);
-  color: var(--text-muted);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--stone-border);
+  color: var(--gold-dark, #9a7530);
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -644,7 +682,7 @@ filter: brightness(0.9);
 
 .pagina-inactiva:hover {
   border-color: var(--gold);
-  color: var(--gold-light);
+  color: var(--gold-dark, #9a7530);
   background: var(--gold-dim);
 }
 
@@ -781,15 +819,21 @@ filter: brightness(0.9);
   .navbar { padding: 0 24px; height: 72px; }
   .navbar img { height: 58px; }
   .navbar-links { display: none; }
-  .propiedades { padding: 48px 24px; }
+  .propiedades { padding: 48px 20px; }
   .footer { padding: 36px 24px 20px; }
   .buscador { flex-direction: column; flex-wrap: wrap; }
+  .seccion-resultados { padding: 32px 20px 48px; }
 }
 
 @media (max-width: 640px) {
-  .hero-content h1 { font-size: 30px; }
+  .hero-content h1 { font-size: 28px; }
+  .propiedades { padding: 40px 16px; }
+  #Propiedades { grid-template-columns: 1fr; gap: 16px; }
+  .grid-propiedades { grid-template-columns: 1fr; gap: 16px; }
   .footer-container { flex-direction: column; align-items: center; gap: 16px; text-align: center; }
   .footer-divider { display: none; }
-  .pagina-resultados { margin-top: 80px; padding: 24px 16px 48px; }
+  .seccion-resultados { padding: 24px 16px 40px; }
   .barra-busqueda { flex-direction: column; }
+  .seccion-resultados > h2 { font-size: 24px; }
+  .pagina-resultados { padding-bottom: 0; }
 }

@@ -443,17 +443,7 @@ body {
   text-align: center;
 }
 
-/* NAVBAR override */
-.navbar {
-  background: linear-gradient(rgba(13,27,42,0.97), rgba(13,27,42,0.97)), url("../recursos/azul.jpg");
-  border-bottom: 1px solid #243b55;
-}
-
-/* FOOTER override */
-.footer {
-  background: linear-gradient(rgba(8,18,28,0.98), rgba(8,18,28,0.98)), url("../recursos/azul.jpg");
-  border-top: 2px solid #c9a84c;
-}
+/* Navbar y footer heredados de index.css */
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
