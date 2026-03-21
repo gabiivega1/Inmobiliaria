@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados - Vitriol Inmobiliaria</title>
     <link rel="stylesheet" href="./css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <a href="https://wa.me/5493510000000" class="whatsapp-float" target="_blank">
@@ -39,6 +40,86 @@
         <section class="seccion-resultados">
             <h2>Propiedades disponibles</h2>
 
+            <!-- Botón filtros móvil -->
+            <button class="btn-filtros-movil" id="btnFiltrosMovil" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+                Filtros
+                <span class="filtros-badge" id="filtrosBadge" style="display:none"></span>
+            </button>
+
+            <!-- Modal filtros móvil -->
+            <div class="filtros-modal-overlay" id="filtrosModalOverlay"></div>
+            <div class="filtros-modal" id="filtrosModal">
+                <div class="filtros-modal-header">
+                    <h3>Filtros</h3>
+                    <button class="filtros-modal-cerrar" id="btnCerrarFiltros" type="button">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="filtros-modal-body">
+
+                    <div class="filtros-modal-grupo">
+                        <label class="filtros-modal-label">Operación</label>
+                        <select id="filtroOperacionMovil">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+
+                    <div class="filtros-modal-grupo">
+                        <label class="filtros-modal-label">Tipo de propiedad</label>
+                        <select id="filtroTipoMovil">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+
+                    <div class="filtros-modal-grupo">
+                        <label class="filtros-modal-label">Dormitorios</label>
+                        <select id="filtroDormitoriosMovil">
+                            <option value="">Cualquier cantidad</option>
+                            <option value="1">1 o más</option>
+                            <option value="2">2 o más</option>
+                            <option value="3">3 o más</option>
+                            <option value="4">4 o más</option>
+                        </select>
+                    </div>
+
+                    <div class="filtros-modal-grupo">
+                        <label class="filtros-modal-label">Barrio</label>
+                        <div style="position:relative;">
+                            <input type="text" id="filtroBarrioMovil" placeholder="Buscar barrio" autocomplete="off">
+                            <div id="sugerenciasBarriosMovil"></div>
+                        </div>
+                    </div>
+
+                    <div class="filtros-modal-grupo">
+                        <label class="filtros-modal-label">Rango de precio</label>
+                        <div class="precio-slider-wrap" style="margin-bottom:12px;">
+                            <div class="precio-track">
+                                <div class="precio-range-fill" id="precioRangeFillMovil"></div>
+                            </div>
+                            <input type="range" id="sliderMinMovil" class="precio-slider" min="0" max="25000000" step="1000" value="0">
+                            <input type="range" id="sliderMaxMovil" class="precio-slider" min="0" max="25000000" step="1000" value="25000000">
+                        </div>
+                        <div class="precio-inputs-row" style="margin-bottom:0;">
+                            <div class="precio-input-group">
+                                <label>Mínimo</label>
+                                <input type="number" id="filtroPrecioMinMovil" placeholder="0" min="0">
+                            </div>
+                            <div class="precio-separador">—</div>
+                            <div class="precio-input-group">
+                                <label>Máximo</label>
+                                <input type="number" id="filtroPrecioMaxMovil" placeholder="Sin límite" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="filtros-modal-footer">
+                    <button class="filtros-btn-limpiar" id="btnLimpiarFiltrosMovil" type="button">Limpiar todo</button>
+                    <button class="filtros-btn-aplicar" id="btnAplicarFiltrosMovil" type="button">Ver propiedades</button>
+                </div>
+            </div>
+
             <div class="barra-busqueda">
                 <select id="filtroOperacion">
                     <option value="" selected hidden>Operación</option>
@@ -56,8 +137,38 @@
                     <option value="4">4 o más</option>
                 </select>
 
-                <input type="number" id="filtroPrecioMin" placeholder="Precio Mín." style="width: 100px;">
-                <input type="number" id="filtroPrecioMax" placeholder="Precio Máx." style="width: 100px;">
+                <!-- Filtro precio unificado -->
+                <div class="filtro-precio-wrapper">
+                    <button class="filtro-precio-btn" id="btnFiltroPrecio" type="button">
+                        <span id="labelPrecio">Precio</span>
+                        <svg class="precio-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="precio-dropdown" id="precioDropdown">
+                        <p class="precio-dropdown-titulo">Rango de precio</p>
+                        <div class="precio-slider-wrap">
+                            <div class="precio-track">
+                                <div class="precio-range-fill" id="precioRangeFill"></div>
+                            </div>
+                            <input type="range" id="sliderMin" class="precio-slider" min="0" max="25000000" step="1000" value="0">
+                            <input type="range" id="sliderMax" class="precio-slider" min="0" max="25000000" step="1000" value="25000000">
+                        </div>
+                        <div class="precio-inputs-row">
+                            <div class="precio-input-group">
+                                <label>Mínimo</label>
+                                <input type="number" id="filtroPrecioMin" placeholder="0" min="0">
+                            </div>
+                            <div class="precio-separador">—</div>
+                            <div class="precio-input-group">
+                                <label>Máximo</label>
+                                <input type="number" id="filtroPrecioMax" placeholder="Sin límite" min="0">
+                            </div>
+                        </div>
+                        <div class="precio-acciones">
+                            <button class="precio-btn-limpiar" id="btnLimpiarPrecio" type="button">Limpiar</button>
+                            <button class="precio-btn-aplicar" id="btnAplicarPrecio" type="button">Aplicar</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="buscador-barrio" style="flex: 2; position: relative;">
                     <input type="text" id="filtroBarrio" placeholder="Buscar barrio" autocomplete="off"

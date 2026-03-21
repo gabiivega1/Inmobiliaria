@@ -245,6 +245,280 @@ const inputBarrio = document.getElementById("filtroBarrio");
 inputBarrio.addEventListener("input", buscarBarrios);
 inputBarrio.addEventListener("keydown", manejarTeclas);
 document.getElementById("filtroDormitorios").addEventListener("change", () => cargarResultados(true));
-document.getElementById("filtroPrecioMin").addEventListener("change", () => cargarResultados(true));
-document.getElementById("filtroPrecioMax").addEventListener("change", () => cargarResultados(true));
+
+// ── Filtro Precio Dropdown ──────────────────────────────────
+const btnFiltroPrecio = document.getElementById("btnFiltroPrecio");
+const precioDropdown  = document.getElementById("precioDropdown");
+const sliderMin       = document.getElementById("sliderMin");
+const sliderMax       = document.getElementById("sliderMax");
+const inputMin        = document.getElementById("filtroPrecioMin");
+const inputMax        = document.getElementById("filtroPrecioMax");
+const rangeFill       = document.getElementById("precioRangeFill");
+const labelPrecio     = document.getElementById("labelPrecio");
+
+const PRECIO_MAX_DEFAULT = 25000000;
+
+function actualizarFill() {
+  const min = parseInt(sliderMin.value);
+  const max = parseInt(sliderMax.value);
+  const total = PRECIO_MAX_DEFAULT; // Tu PRECIO_MAX_DEFAULT
+  
+  const leftPct = (min / total) * 100;
+  const widthPct = ((max - min) / total) * 100;
+  
+  rangeFill.style.left = leftPct + "%";
+  rangeFill.style.width = widthPct + "%";
+}
+
+function formatearPrecio(v) {
+  if (v >= 25000000) return "$" + (v / 25000000).toFixed(v % 25000000 === 0 ? 0 : 1) + "M";
+  if (v >= 1000)    return "$" + (v / 1000).toFixed(0) + "k";
+  return "$" + v;
+}
+
+function actualizarLabel() {
+  const min = parseInt(sliderMin.value);
+  const max = parseInt(sliderMax.value);
+  const sinMin = min === 0;
+  const sinMax = max === PRECIO_MAX_DEFAULT;
+  if (sinMin && sinMax) {
+    labelPrecio.textContent = "Precio";
+    btnFiltroPrecio.classList.remove("activo");
+  } else if (sinMin) {
+    labelPrecio.textContent = "Hasta " + formatearPrecio(max);
+    btnFiltroPrecio.classList.add("activo");
+  } else if (sinMax) {
+    labelPrecio.textContent = "Desde " + formatearPrecio(min);
+    btnFiltroPrecio.classList.add("activo");
+  } else {
+    labelPrecio.textContent = formatearPrecio(min) + " – " + formatearPrecio(max);
+    btnFiltroPrecio.classList.add("activo");
+  }
+}
+
+sliderMin.addEventListener("input", () => {
+  if (parseInt(sliderMin.value) > parseInt(sliderMax.value) - 10000)
+    sliderMin.value = parseInt(sliderMax.value) - 10000;
+  inputMin.value = sliderMin.value === "0" ? "" : sliderMin.value;
+  actualizarFill();
+});
+
+sliderMax.addEventListener("input", () => {
+  if (parseInt(sliderMax.value) < parseInt(sliderMin.value) + 10000)
+    sliderMax.value = parseInt(sliderMin.value) + 10000;
+  inputMax.value = sliderMax.value === String(PRECIO_MAX_DEFAULT) ? "" : sliderMax.value;
+  actualizarFill();
+});
+
+inputMin.addEventListener("input", () => {
+  const v = parseInt(inputMin.value) || 0;
+  sliderMin.value = Math.min(v, parseInt(sliderMax.value) - 10000);
+  actualizarFill();
+});
+
+inputMax.addEventListener("input", () => {
+  const v = parseInt(inputMax.value) || PRECIO_MAX_DEFAULT;
+  sliderMax.value = Math.max(v, parseInt(sliderMin.value) + 10000);
+  actualizarFill();
+});
+
+btnFiltroPrecio.addEventListener("click", (e) => {
+  e.stopPropagation();
+  precioDropdown.classList.toggle("abierto");
+  btnFiltroPrecio.classList.toggle("dropdown-abierto");
+});
+
+document.addEventListener("click", (e) => {
+  if (!precioDropdown.contains(e.target) && e.target !== btnFiltroPrecio) {
+    precioDropdown.classList.remove("abierto");
+    btnFiltroPrecio.classList.remove("dropdown-abierto");
+  }
+});
+
+document.getElementById("btnAplicarPrecio").addEventListener("click", () => {
+  actualizarLabel();
+  precioDropdown.classList.remove("abierto");
+  btnFiltroPrecio.classList.remove("dropdown-abierto");
+  cargarResultados(true);
+});
+
+document.getElementById("btnLimpiarPrecio").addEventListener("click", () => {
+  sliderMin.value = 0;
+  sliderMax.value = PRECIO_MAX_DEFAULT;
+  inputMin.value  = "";
+  inputMax.value  = "";
+  actualizarFill();
+  actualizarLabel();
+  cargarResultados(true);
+});
+
+actualizarFill();
+inicializarFiltros();
+// ── Filtros Móvil Modal ─────────────────────────────────────
+const btnFiltrosMovil  = document.getElementById("btnFiltrosMovil");
+const filtrosModal     = document.getElementById("filtrosModal");
+const filtrosOverlay   = document.getElementById("filtrosModalOverlay");
+const btnCerrarFiltros = document.getElementById("btnCerrarFiltros");
+const btnAplicarMovil  = document.getElementById("btnAplicarFiltrosMovil");
+const btnLimpiarMovil  = document.getElementById("btnLimpiarFiltrosMovil");
+const filtrosBadge     = document.getElementById("filtrosBadge");
+
+// Slider móvil
+const sliderMinM = document.getElementById("sliderMinMovil");
+const sliderMaxM = document.getElementById("sliderMaxMovil");
+const inputMinM  = document.getElementById("filtroPrecioMinMovil");
+const inputMaxM  = document.getElementById("filtroPrecioMaxMovil");
+const rangeFillM = document.getElementById("precioRangeFillMovil");
+
+function actualizarFillMovil() {
+  const min = parseInt(sliderMinM.value);
+  const max = parseInt(sliderMaxM.value);
+  rangeFillM.style.left  = (min / PRECIO_MAX_DEFAULT * 100) + "%";
+  rangeFillM.style.width = ((max - min) / PRECIO_MAX_DEFAULT * 100) + "%";
+}
+
+sliderMinM.addEventListener("input", () => {
+  if (parseInt(sliderMinM.value) > parseInt(sliderMaxM.value) - 10000)
+    sliderMinM.value = parseInt(sliderMaxM.value) - 10000;
+  inputMinM.value = sliderMinM.value === "0" ? "" : sliderMinM.value;
+  actualizarFillMovil();
+});
+
+sliderMaxM.addEventListener("input", () => {
+  if (parseInt(sliderMaxM.value) < parseInt(sliderMinM.value) + 10000)
+    sliderMaxM.value = parseInt(sliderMinM.value) + 10000;
+  inputMaxM.value = sliderMaxM.value === String(PRECIO_MAX_DEFAULT) ? "" : sliderMaxM.value;
+  actualizarFillMovil();
+});
+
+inputMinM.addEventListener("input", () => {
+  const v = parseInt(inputMinM.value) || 0;
+  sliderMinM.value = Math.min(v, parseInt(sliderMaxM.value) - 10000);
+  actualizarFillMovil();
+});
+
+inputMaxM.addEventListener("input", () => {
+  const v = parseInt(inputMaxM.value) || PRECIO_MAX_DEFAULT;
+  sliderMaxM.value = Math.max(v, parseInt(sliderMinM.value) + 10000);
+  actualizarFillMovil();
+});
+
+actualizarFillMovil();
+
+// Abrir modal — sincroniza los valores actuales del desktop
+function abrirModal() {
+  document.getElementById("filtroOperacionMovil").value   = document.getElementById("filtroOperacion").value;
+  document.getElementById("filtroTipoMovil").value        = document.getElementById("filtroTipo").value;
+  document.getElementById("filtroDormitoriosMovil").value = document.getElementById("filtroDormitorios").value;
+  document.getElementById("filtroBarrioMovil").value      = document.getElementById("filtroBarrio").value;
+  sliderMinM.value = sliderMin.value;
+  sliderMaxM.value = sliderMax.value;
+  inputMinM.value  = inputMin.value;
+  inputMaxM.value  = inputMax.value;
+  actualizarFillMovil();
+  filtrosModal.classList.add("abierto");
+  filtrosOverlay.classList.add("abierto");
+  document.body.style.overflow = "hidden";
+}
+
+function cerrarModal() {
+  filtrosModal.classList.remove("abierto");
+  filtrosOverlay.classList.remove("abierto");
+  document.body.style.overflow = "";
+}
+
+btnFiltrosMovil.addEventListener("click", abrirModal);
+btnCerrarFiltros.addEventListener("click", cerrarModal);
+filtrosOverlay.addEventListener("click", cerrarModal);
+
+// Autocompletado de barrios dentro del modal
+async function buscarBarriosMovil() {
+  const texto = document.getElementById("filtroBarrioMovil").value;
+  const cont  = document.getElementById("sugerenciasBarriosMovil");
+  if (texto.length < 1) { cont.innerHTML = ""; return; }
+  const { data } = await supabaseClient.from('Barrios').select('*').ilike('name', `%${texto}%`);
+  cont.innerHTML = "";
+  data.forEach(b => {
+    const d = document.createElement("div");
+    d.className = "sugerencia";
+    d.textContent = b.name;
+    d.onclick = () => {
+      document.getElementById("filtroBarrioMovil").value = b.name;
+      cont.innerHTML = "";
+    };
+    cont.appendChild(d);
+  });
+}
+document.getElementById("filtroBarrioMovil").addEventListener("input", buscarBarriosMovil);
+
+// Badge: cuenta filtros activos
+function actualizarBadge() {
+  const vals = [
+    document.getElementById("filtroOperacion").value,
+    document.getElementById("filtroTipo").value,
+    document.getElementById("filtroDormitorios").value,
+    document.getElementById("filtroBarrio").value,
+    document.getElementById("filtroPrecioMin").value,
+    document.getElementById("filtroPrecioMax").value,
+  ];
+  const count = vals.filter(Boolean).length;
+  if (count > 0) {
+    filtrosBadge.textContent = count;
+    filtrosBadge.style.display = "inline-flex";
+    btnFiltrosMovil.classList.add("activo");
+  } else {
+    filtrosBadge.style.display = "none";
+    btnFiltrosMovil.classList.remove("activo");
+  }
+}
+
+// Aplicar: móvil → desktop → buscar
+btnAplicarMovil.addEventListener("click", () => {
+  document.getElementById("filtroOperacion").value   = document.getElementById("filtroOperacionMovil").value;
+  document.getElementById("filtroTipo").value        = document.getElementById("filtroTipoMovil").value;
+  document.getElementById("filtroDormitorios").value = document.getElementById("filtroDormitoriosMovil").value;
+  document.getElementById("filtroBarrio").value      = document.getElementById("filtroBarrioMovil").value;
+  sliderMin.value = sliderMinM.value;
+  sliderMax.value = sliderMaxM.value;
+  inputMin.value  = inputMinM.value;
+  inputMax.value  = inputMaxM.value;
+  actualizarFill();
+  actualizarLabel();
+  cerrarModal();
+  actualizarBadge();
+  cargarResultados(true);
+});
+
+// Limpiar: solo resetea dentro del modal (sin cerrar)
+btnLimpiarMovil.addEventListener("click", () => {
+  document.getElementById("filtroOperacionMovil").value   = "";
+  document.getElementById("filtroTipoMovil").value        = "";
+  document.getElementById("filtroDormitoriosMovil").value = "";
+  document.getElementById("filtroBarrioMovil").value      = "";
+  sliderMinM.value = 0;
+  sliderMaxM.value = PRECIO_MAX_DEFAULT;
+  inputMinM.value  = "";
+  inputMaxM.value  = "";
+  actualizarFillMovil();
+});
+
+// Poblar selects del modal con las opciones cargadas del desktop
+// Se llama después de que inicializarFiltros() terminó
+function poblarSelectsMovil() {
+  ["filtroOperacion", "filtroTipo"].forEach(id => {
+    const src  = document.getElementById(id);
+    const dest = document.getElementById(id + "Movil");
+    Array.from(src.options).forEach(opt => {
+      if (opt.value !== "") dest.appendChild(opt.cloneNode(true));
+    });
+  });
+}
+
+// Reemplazamos el llamado final para que cargue también los selects del modal
+const _inicializarOriginal = inicializarFiltros;
+inicializarFiltros = async function() {
+  await _inicializarOriginal();
+  poblarSelectsMovil();
+};
+
 inicializarFiltros();
