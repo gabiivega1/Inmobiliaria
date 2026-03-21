@@ -1523,3 +1523,11 @@ filter: brightness(1);
   .filtros-modal-overlay,
   .filtros-modal { display: none !important; }
 }
+
+@media (min-width: 768px) {
+    .btn-filtros-movil,
+    .filtros-modal-overlay,
+    .filtros-modal {
+        display: none !important;
+    }
+}
