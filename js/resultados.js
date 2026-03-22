@@ -5,6 +5,7 @@ const supabaseClient = window.supabase.createClient(
 
 let paginaActual = 1;
 const cantidadPorPagina = 9;
+let ordenActual = '';
 
 async function inicializarFiltros() {
   const { data: operaciones } = await supabaseClient.from('Operaciones').select('*');
@@ -74,6 +75,12 @@ async function cargarResultados(resetearPagina = false) {
   if (precioMin) query = query.gte('price', precioMin);
   if (precioMax) query = query.lte('price', precioMax);
 
+  // Ordenamiento
+  if (ordenActual === 'precioAsc') query = query.order('price', { ascending: true });
+  else if (ordenActual === 'precioDesc') query = query.order('price', { ascending: false });
+  else if (ordenActual === 'recientes') query = query.order('id', { ascending: false });
+  else query = query.order('id', { ascending: false });
+
   query = query.range(inicioRango, finRango);
 
   const { data, count, error } = await query;
@@ -133,10 +140,6 @@ if (propiedad.Imagenes && propiedad.Imagenes.length > 0) {
   });
 }
 
-
-
-
-
 window.verPropiedad = function(id) {
     window.location.href = `propiedades.html?id=${id}`;
 };
@@ -149,22 +152,65 @@ function renderizarPaginacion(totalItems) {
 
   if (totalPaginas <= 1) return;
 
-  for (let i = 1; i <= totalPaginas; i++) {
-    const boton = document.createElement("button");
-    boton.innerText = i;
+  // Función auxiliar para crear botones o puntos suspensivos
+  const crearElemento = (texto, paginaDestino, esActivo = false, esDeshabilitado = false, esPuntos = false) => {
+    const elemento = document.createElement(esPuntos ? "span" : "button");
+    elemento.innerHTML = texto;
 
-    if (i === paginaActual) {
-      boton.className = "pagina-activa";
-    } else {
-      boton.className = "pagina-inactiva";
-      boton.onclick = () => {
-        paginaActual = i;
-        cargarResultados(false);
-      };
+    if (esPuntos) {
+      elemento.className = "pagina-puntos";
+      return elemento;
     }
 
-    contenedor.appendChild(boton);
+    if (esActivo) {
+      elemento.className = "pagina-activa";
+    } else {
+      elemento.className = "pagina-inactiva";
+      if (!esDeshabilitado) {
+        elemento.onclick = () => {
+          paginaActual = paginaDestino;
+          cargarResultados(false);
+          // Opcional: Hace scroll suave hacia arriba al cambiar de página
+          document.querySelector('.seccion-resultados').scrollIntoView({ behavior: 'smooth' });
+        };
+      } else {
+        elemento.classList.add("pagina-deshabilitada");
+      }
+    }
+    return elemento;
+  };
+
+  // 1. Botón Anterior
+  contenedor.appendChild(crearElemento("&laquo;", paginaActual - 1, false, paginaActual === 1));
+
+  // 2. Lógica para mostrar números y puntos suspensivos
+  let paginasVisibles = [];
+  
+  if (totalPaginas <= 5) {
+    // Si hay 5 o menos páginas, mostramos todas
+    for (let i = 1; i <= totalPaginas; i++) paginasVisibles.push(i);
+  } else {
+    // Si hay muchas páginas, calculamos los recortes
+    if (paginaActual <= 3) {
+      paginasVisibles = [1, 2, 3, 4, "...", totalPaginas];
+    } else if (paginaActual >= totalPaginas - 2) {
+      paginasVisibles = [1, "...", totalPaginas - 3, totalPaginas - 2, totalPaginas - 1, totalPaginas];
+    } else {
+      paginasVisibles = [1, "...", paginaActual - 1, paginaActual, paginaActual + 1, "...", totalPaginas];
+    }
   }
+
+  // 3. Renderizar los números y puntos
+  paginasVisibles.forEach(p => {
+    if (p === "...") {
+      contenedor.appendChild(crearElemento("...", null, false, false, true));
+    } else {
+      contenedor.appendChild(crearElemento(p, p, p === paginaActual));
+    }
+  });
+
+  // 4. Botón Siguiente
+  contenedor.appendChild(crearElemento("&raquo;", paginaActual + 1, false, paginaActual === totalPaginas));
 }
 
 let indiceSeleccionado = -1;
@@ -522,3 +568,41 @@ inicializarFiltros = async function() {
 };
 
 inicializarFiltros();
+// ── Ordenar ──────────────────────────────────────────
+function setupOrdenar(btnId, dropdownId, opcionClass) {
+    const btn = document.getElementById(btnId);
+    const dropdown = document.getElementById(dropdownId);
+    if (!btn || !dropdown) return;
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function() {
+        dropdown.classList.remove('active');
+    });
+
+    dropdown.querySelectorAll('.' + opcionClass).forEach(function(opcion) {
+        opcion.addEventListener('click', function() {
+            ordenActual = this.dataset.orden;
+            // Actualizar activa en AMBOS dropdowns
+            document.querySelectorAll('.ordenar-opcion, .ordenar-opcion-movil')
+                .forEach(b => b.classList.remove('activa'));
+            // Marcar la opcion equivalente en ambos
+            document.querySelectorAll('[data-orden="' + ordenActual + '"]')
+                .forEach(b => b.classList.add('activa'));
+            // Actualizar texto de ambos botones
+            const texto = this.textContent.trim();
+            ['btnOrdenar', 'btnOrdenarMovil'].forEach(id => {
+                const b = document.getElementById(id);
+                if (b) b.childNodes[0].textContent = texto + ' ';
+            });
+            dropdown.classList.remove('active');
+            cargarResultados(true);
+        });
+    });
+}
+
+setupOrdenar('btnOrdenar', 'ordenarDropdown', 'ordenar-opcion');
+setupOrdenar('btnOrdenarMovil', 'ordenarDropdownMovil', 'ordenar-opcion-movil');
