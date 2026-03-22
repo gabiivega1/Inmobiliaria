@@ -572,7 +572,7 @@ filter: brightness(1);
   color: var(--text);
 }
 
-.barra-busqueda button {
+.barra-busqueda button:not(.ordenar-btn):not(.filtro-precio-btn):not(.ordenar-opcion):not(.precio-btn-limpiar):not(.precio-btn-aplicar) {
   padding: 10px 20px;
   border: none;
   border-radius: var(--radius-sm);
@@ -584,7 +584,7 @@ filter: brightness(1);
   transition: filter var(--transition), transform 0.1s;
 }
 
-.barra-busqueda button:hover {
+.barra-busqueda button:not(.ordenar-btn):not(.filtro-precio-btn):not(.ordenar-opcion):not(.precio-btn-limpiar):not(.precio-btn-aplicar):hover {
   filter: brightness(1.05);
   transform: translateY(-1px);
 }
@@ -717,6 +717,21 @@ filter: brightness(1);
   border-color: var(--gold);
   color: var(--gold-dark, #9a7530);
   background: var(--gold-dim);
+}
+
+.pagina-puntos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+.pagina-deshabilitada {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* ── WhatsApp Float ────────────────────────────────────── */
@@ -1530,4 +1545,156 @@ filter: brightness(1);
     .filtros-modal {
         display: none !important;
     }
+}
+/* ── Ordenar dropdown ────────────────────────────────── */
+.ordenar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+/* Fila filtros + ordenar — solo visible en mobile */
+.filtros-ordenar-row {
+  display: none;
+}
+
+/* Ordenar dentro de barra-busqueda en desktop */
+.barra-busqueda .ordenar-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  /* Mostrar row en mobile */
+  .filtros-ordenar-row {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  /* Ocultar ordenar de la barra en mobile */
+  .barra-busqueda .ordenar-wrapper {
+    display: none;
+  }
+
+  /* Filtros y Ordenar del mismo tamaño */
+  .filtros-ordenar-row .btn-filtros-movil {
+    flex: 1;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .filtros-ordenar-row .ordenar-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: stretch;
+    margin-bottom: 0;
+    position: relative; 
+  }
+
+  .filtros-ordenar-row .ordenar-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    border: 1px solid rgba(0,0,0,0.15);
+    background: #fff;
+    color: #1a1a1a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 0;
+  }
+
+  #ordenarDropdownMovil {
+    position: absolute;
+    top: calc(100% + 6px); 
+    right: 0;              
+    left: auto;
+    width: 100%;           
+    min-width: 160px;
+    z-index: 200;
+    background: white;
+    border: 1px solid var(--stone-border);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+}
+
+.ordenar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--stone-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+}
+
+.ordenar-btn:hover {
+  border-color: rgba(201,168,76,0.5);
+}
+
+.ordenar-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 180px;
+  background: white;
+  border: 1px solid var(--stone-border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.ordenar-dropdown.active {
+  display: block;
+}
+
+.ordenar-opcion,
+.ordenar-opcion-movil {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: white;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 13px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ordenar-opcion:last-child,
+.ordenar-opcion-movil:last-child {
+  border-bottom: none;
+}
+
+.ordenar-opcion:hover,
+.ordenar-opcion-movil:hover {
+  background: #f5f5f5;
+}
+
+.ordenar-opcion.activa,
+.ordenar-opcion-movil.activa {
+  color: var(--gold-dark, #9a7530);
+  font-weight: 600;
+  background: white;
 }
