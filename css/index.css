@@ -249,6 +249,7 @@ footer {
   line-height: 1.2;
   margin-bottom: 14px;
   text-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  white-space: nowrap;
 }
 
 .hero-content p {
@@ -933,13 +934,15 @@ filter: brightness(1);
 }
 
 .ver-mas-container{
+  
   width:100%;
   text-align:center;
   margin-top:40px;
 }
 
 #btnVerMas{
-  background:var(--gold);
+  background-image: url(../recursos/O5GLM70.jpg);
+  
   color:var(--navy);
   border:none;
   padding:12px 28px;
