@@ -237,8 +237,8 @@ footer {
   z-index: 3;
   max-width: 700px;
   padding: 0 24px;
-  margin-top: 600px;
-  transform: translateY(-8vh);
+  margin-top: 35vh;
+  /* transform: translateY(-8vh); */
 }
 
 .hero-content h1 {
@@ -914,6 +914,7 @@ filter: brightness(1);
   .navbar { padding: 0 24px; height: 72px; }
   .navbar img { height: 58px; }
   .navbar-links { display: none; }
+  
   .propiedades { padding: 48px 20px; }
   .footer { padding: 36px 24px 20px; }
   .buscador { flex-direction: column; flex-wrap: wrap; }
@@ -921,8 +922,12 @@ filter: brightness(1);
 }
 
 @media (max-width: 640px) {
+  .hero{
+    background-image: url("../recursos/WhatsApp\ Image\ 2026-03-04\ at\ 16.01.31.jpeg");
+    background-position: center;
+  }
   .hero-content h1 { font-size: 28px; }
-  .propiedades { padding: 40px 16px; }
+  .propiedades { padding: 40px 16px;  }
   #Propiedades { grid-template-columns: 1fr; gap: 16px; }
   .grid-propiedades { grid-template-columns: 1fr; gap: 16px; }
   .footer-container { flex-direction: column; align-items: center; gap: 16px; text-align: center; }

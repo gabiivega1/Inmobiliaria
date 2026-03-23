@@ -117,14 +117,13 @@ btnVerMas.addEventListener("click", () => {
 function ajustarAlturaInicial(){
 
   const contenedor = document.getElementById("Propiedades")
-  const card = contenedor.querySelector(".card")
+  const cards = contenedor.querySelectorAll(".card")
 
-  if(!card) return
+  if(cards.length === 0) return
 
-  const alturaCard = card.offsetHeight
-  const gap = 24
+  const altura = cards[0].offsetHeight
 
-  contenedor.style.maxHeight = (alturaCard + gap) + "px"
+  contenedor.style.maxHeight = altura + "px"
 
 }
 
