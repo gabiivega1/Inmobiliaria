@@ -3,9 +3,13 @@ const supabaseClient = window.supabase.createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxpcmh4eHZlbWFnb3l2bGlqZnJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1OTUzMjYsImV4cCI6MjA4ODE3MTMyNn0.s-E_H_9awM0zZ_r14SH6NmEJ3Y4KeUo_R3CxQKQ7sDw'
 );
 
+
+
 let paginaActual = 1;
 const cantidadPorPagina = 9;
 let ordenActual = '';
+
+const whatsapp = document.querySelector('.whatsapp-float');
 
 async function inicializarFiltros() {
   const { data: operaciones } = await supabaseClient.from('Operaciones').select('*');
@@ -453,6 +457,7 @@ actualizarFillMovil();
 
 // Abrir modal — sincroniza los valores actuales del desktop
 function abrirModal() {
+  whatsapp.style.display = "none";
   document.getElementById("filtroOperacionMovil").value   = document.getElementById("filtroOperacion").value;
   document.getElementById("filtroTipoMovil").value        = document.getElementById("filtroTipo").value;
   document.getElementById("filtroDormitoriosMovil").value = document.getElementById("filtroDormitorios").value;
@@ -468,6 +473,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
+  whatsapp.style.display = "block";
   filtrosModal.classList.remove("abierto");
   filtrosOverlay.classList.remove("abierto");
   document.body.style.overflow = "";

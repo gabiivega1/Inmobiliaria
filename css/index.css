@@ -1726,3 +1726,7 @@ filter: brightness(1);
   font-weight: 600;
   background: white;
 }
+
+.whatsapp-float.oculto{
+  display:none;
+}

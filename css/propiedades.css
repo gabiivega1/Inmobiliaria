@@ -472,3 +472,7 @@ width:60px;
 height:60px;
 cursor:pointer;
 }
+
+.whatsapp-float.oculto{
+  display:none;
+}
