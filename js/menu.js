@@ -23,6 +23,7 @@ menuOverlay.addEventListener('click', function () {
     menuBtn.classList.remove('active')
     menuNav.classList.remove('active')
     menuOverlay.classList.remove('active')
+    whatsapp.classList.remove('oculto')
 });
 
 const menuLinks = document.querySelectorAll('#id_menuNav a')
@@ -31,5 +32,6 @@ menuLinks.forEach(function (link) {
         menuBtn.classList.remove('active')
         menuNav.classList.remove('active')
         menuOverlay.classList.remove('active')
+        whatsapp.classList.remove('oculto')
     })
 })

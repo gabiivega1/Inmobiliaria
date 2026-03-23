@@ -457,7 +457,7 @@ actualizarFillMovil();
 
 // Abrir modal — sincroniza los valores actuales del desktop
 function abrirModal() {
-  whatsapp.style.display = "none";
+  whatsapp.classList.add("oculto");
   document.getElementById("filtroOperacionMovil").value   = document.getElementById("filtroOperacion").value;
   document.getElementById("filtroTipoMovil").value        = document.getElementById("filtroTipo").value;
   document.getElementById("filtroDormitoriosMovil").value = document.getElementById("filtroDormitorios").value;
@@ -473,7 +473,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
-  whatsapp.style.display = "block";
+  whatsapp.classList.remove("oculto");
   filtrosModal.classList.remove("abierto");
   filtrosOverlay.classList.remove("abierto");
   document.body.style.overflow = "";

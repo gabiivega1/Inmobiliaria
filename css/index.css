@@ -110,7 +110,7 @@ footer {
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 3000 !important;
+  z-index: 4002 !important;
   
   /* NUEVAS LÍNEAS: Usamos tu nueva imagen de mármol */
   background-image: url('../recursos/header-marmol.jpg');
@@ -880,7 +880,7 @@ filter: brightness(1);
     border: none;
     cursor: pointer;
     padding: 5px;
-    z-index: 102;
+    z-index: 4005 !important;
     position: relative;
 }
 
@@ -904,7 +904,7 @@ filter: brightness(1);
     width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 98;
+    z-index: 4001 !important;
 }
 
 .menuOverlay.active { display: block; }
@@ -1390,7 +1390,7 @@ filter: brightness(1);
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  z-index: 600;
+  z-index: 4001 !important;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
@@ -1405,7 +1405,7 @@ filter: brightness(1);
   max-width: 360px;
   height: 100dvh;
   background: #fff;
-  z-index: 700;
+  z-index: 4002 !important;
   flex-direction: column;
   box-shadow: -8px 0 40px rgba(0,0,0,0.2);
   transform: translateX(100%);
@@ -1728,5 +1728,5 @@ filter: brightness(1);
 }
 
 .whatsapp-float.oculto{
-  display:none;
+  display: none !important;
 }
