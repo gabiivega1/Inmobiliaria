@@ -464,7 +464,7 @@ body {
 position:fixed;
 bottom:25px;
 right:25px;
-z-index:1000;
+z-index:4000;
 }
 
 .whatsapp-float img{
