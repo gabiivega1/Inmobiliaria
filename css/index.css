@@ -936,6 +936,24 @@ filter: brightness(1);
   .barra-busqueda { flex-direction: column; }
   .seccion-resultados > h2 { font-size: 24px; }
   .pagina-resultados { padding-bottom: 0; }
+  .buscador{
+    width:100%;
+    align-items:stretch;
+    gap: 1vh;
+  }
+
+  .buscador select,
+  .buscador input,
+  .buscador button{
+    width:100%;
+    min-width:0;
+  }
+
+  .buscador-barrio{
+    width:100%;
+    flex:unset;
+    min-width:0;
+  }
 }
 
 .ver-mas-container{

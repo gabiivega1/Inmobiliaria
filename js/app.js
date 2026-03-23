@@ -318,9 +318,6 @@ btnBuscar.addEventListener("click", function(){
 
 
 
-filtroOperacion.addEventListener("change", filtrar)
-filtroTipo.addEventListener("change", filtrar)
-filtroBarrio.addEventListener("input", buscarBarrios)
 filtroBarrio.addEventListener("keydown", manejarTeclas)
 
 
