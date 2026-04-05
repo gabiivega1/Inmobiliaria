@@ -81,13 +81,16 @@ function renderizarPropiedad(p) {
     document.getElementById('itemMetros').style.display = 'none'
   }
 
+  // --- NUEVO: Cochera ---
+  if (p.garage) { // <-- ¡Cambiar por tu columna de Supabase!
+    document.getElementById('cantCochera').style.display = p.garage;
+  } else {
+    document.getElementById('itemCochera').style.display = 'none'
+  }
+
   // Descripción
   document.getElementById('detalleDescripcion').textContent = p.description || 'Sin descripción disponible.'
-
-  // WhatsApp
-  const mensajeWpp = encodeURIComponent(`Hola! Me interesa la propiedad: ${p.title}. ID: ${p.id}`)
-  document.getElementById('btnWhatsapp').href = `https://wa.me/5493510000000?text=${mensajeWpp}`
-
+  
   // Galería
   renderizarGaleria()
 
@@ -162,35 +165,6 @@ function actualizarContador() {
 function mostrarError() {
   document.getElementById('loading').style.display = 'none'
   document.getElementById('error').style.display = 'block'
-}
-
-// --- Formulario de contacto ---
-window.enviarConsulta = function() {
-
-  const nombre = document.getElementById('contactoNombre').value.trim()
-  const telefono = document.getElementById('contactoTelefono').value.trim()
-  const email = document.getElementById('contactoEmail').value.trim()
-  const mensaje = document.getElementById('contactoMensaje').value.trim()
-
-  if (!nombre || !telefono || !email) {
-    alert('Por favor completá nombre, teléfono y email.')
-    return
-  }
-
-  // Acá podés conectar con Supabase para guardar la consulta,
-  // o con un servicio de emails como EmailJS.
-  // Por ahora mostramos el mensaje de éxito:
-  document.getElementById('mensajeExito').style.display = 'block'
-
-  // Limpiar formulario
-  document.getElementById('contactoNombre').value = ''
-  document.getElementById('contactoTelefono').value = ''
-  document.getElementById('contactoEmail').value = ''
-  document.getElementById('contactoMensaje').value = ''
-
-  setTimeout(() => {
-    document.getElementById('mensajeExito').style.display = 'none'
-  }, 5000)
 }
 
 // --- Teclado para galería ---
