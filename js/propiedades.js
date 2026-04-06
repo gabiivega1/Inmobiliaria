@@ -75,18 +75,27 @@ function renderizarPropiedad(p) {
     document.getElementById('itemBanos').style.display = 'none'
   }
 
-  if (p.meters) {
-    document.getElementById('cantMetros').textContent = p.meters
-  } else {
-    document.getElementById('itemMetros').style.display = 'none'
-  }
+  if (p.CoverMeters) {
+  document.getElementById('cantMetros').textContent = p.CoverMeters
+} else {
+  document.getElementById('itemMetros').style.display = 'none'
+}
+
+// m² totales
+if (p.TotalMeters) {
+  document.getElementById('cantMetrosTotales').textContent = p.TotalMeters
+} else {
+  document.getElementById('itemMetrosTotales').style.display = 'none'
+}
 
   // --- NUEVO: Cochera ---
-  if (p.garage) { // <-- ¡Cambiar por tu columna de Supabase!
-    document.getElementById('cantCochera').style.display = p.garage;
-  } else {
-    document.getElementById('itemCochera').style.display = 'none'
-  }
+  const cochera = document.getElementById('cantCochera');
+  
+  if (p.garage) {
+  cochera.textContent = "Sí";
+} else {
+  cochera.textContent = "No";
+}
 
   // Descripción
   document.getElementById('detalleDescripcion').textContent = p.description || 'Sin descripción disponible.'
@@ -98,6 +107,14 @@ function renderizarPropiedad(p) {
   document.getElementById('loading').style.display = 'none'
   document.getElementById('contenidoDetalle').style.display = 'block'
 }
+
+function optimizarImagen(url){
+  if(url.includes("?")){
+    return url + "&w=800&q=70&auto=format"
+  }
+  return url + "?w=800&q=70&auto=format"
+}
+
 
 // --- Galería ---
 function renderizarGaleria() {
@@ -111,14 +128,14 @@ function renderizarGaleria() {
   if (imagenes.length === 0) return
 
   // Imagen principal
-  imgPrincipal.src = imagenes[0].image_url
+  imgPrincipal.src = optimizarImagen(imagenes[0].image_url)
   actualizarContador()
 
   // Thumbnails
   thumbsContainer.innerHTML = ''
   imagenes.forEach((img, i) => {
     const thumb = document.createElement('img')
-    thumb.src = img.image_url
+    thumb.src = optimizarImagen(img.image_url)
     thumb.alt = `Foto ${i + 1}`
     thumb.className = 'thumb' + (i === 0 ? ' activa' : '')
     thumb.onclick = () => irAImagen(i)
@@ -139,7 +156,7 @@ function irAImagen(i) {
 
   imgPrincipal.style.opacity = '0'
   setTimeout(() => {
-    imgPrincipal.src = imagenes[indiceActual].image_url
+    imgPrincipal.src = optimizarImagen(imagenes[indiceActual].image_url)
     imgPrincipal.style.opacity = '1'
   }, 150)
 

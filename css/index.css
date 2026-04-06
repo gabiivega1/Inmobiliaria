@@ -113,7 +113,7 @@ footer {
   z-index: 4002 !important;
   
   /* NUEVAS LÍNEAS: Usamos tu nueva imagen de mármol */
-  background-image: url('../recursos/header-marmol.jpg');
+  background-image: url('../recursos/header-marmol.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -194,7 +194,7 @@ footer {
   position: relative;
   height: 100vh;
   min-height: 560px;
-  background-image: url("../recursos/ChatGPT\ Image\ 13\ mar\ 2026\,\ 08_50_59\ p.m..png");
+  background-image: url("../recursos/ChatGPT\ Image\ 13\ mar\ 2026\,\ 08_50_59\ p.m..webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center 66%;
@@ -265,7 +265,7 @@ footer {
   display: flex;
   align-items: center;
   gap: 6px;
-  background-image: url(../recursos/WhatsApp\ Image\ 2026-03-18\ at\ 4.52.56\ PM.jpeg);
+  background-image: url(../recursos/WhatsApp\ Image\ 2026-03-18\ at\ 4.52.56\ PM.webp);
   /*background: rgba(10, 22, 40, 0.85);*/
   border: 1px solid var(--navy-border);
   padding: 12px 14px;
@@ -756,7 +756,7 @@ filter: brightness(1);
 
 /* ── Footer ────────────────────────────────────────────── */
 .footer {
-   background-image: url('../recursos/header-marmol.jpg');
+   background-image: url('../recursos/header-marmol.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -925,7 +925,7 @@ filter: brightness(1);
   .hero{
     min-height: unset;
     height: 100vh;
-    background-image: url("../recursos/WhatsApp\ Image\ 2026-03-04\ at\ 16.01.31.jpeg");
+    background-image: url("../recursos/WhatsApp\ Image\ 2026-03-04\ at\ 16.01.31.webp");
     background-position: center ;
   }
   .hero-content h1 { font-size: 28px; }
