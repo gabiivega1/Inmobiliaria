@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -61,7 +61,7 @@
 }
 
 .faq-header p {
-  font-size: 15px;
+  font-size: 18px;
   color: var(--text-muted);
   font-weight: 300;
   max-width: 480px;
@@ -70,7 +70,7 @@
 
 /* ── Etiqueta de categoría ─────────────────────────────── */
 .faq-category {
-  font-size: 10px;
+  font-size: 22px;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -119,7 +119,7 @@
 /* ── Texto de la pregunta ──────────────────────────────── */
 .faq-pregunta {
   font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   color: var(--text);
   line-height: 1.5;
@@ -184,7 +184,7 @@
 
 .faq-body-inner p {
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   color: var(--text-muted);
   line-height: 1.8;
@@ -211,14 +211,14 @@
 
 .faq-contacto-texto h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 6px;
 }
 
 .faq-contacto-texto p {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   color: var(--text-muted);
   line-height: 1.6;
@@ -235,7 +235,7 @@
   border: none;
   border-radius: var(--radius-sm);
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;

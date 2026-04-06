@@ -402,8 +402,6 @@ document.getElementById("btnLimpiarPrecio").addEventListener("click", () => {
   cargarResultados(true);
 });
 
-actualizarFill();
-inicializarFiltros();
 // ── Filtros Móvil Modal ─────────────────────────────────────
 const btnFiltrosMovil  = document.getElementById("btnFiltrosMovil");
 const filtrosModal     = document.getElementById("filtrosModal");
@@ -573,7 +571,6 @@ inicializarFiltros = async function() {
   poblarSelectsMovil();
 };
 
-inicializarFiltros();
 // ── Ordenar ──────────────────────────────────────────
 function setupOrdenar(btnId, dropdownId, opcionClass) {
     const btn = document.getElementById(btnId);
@@ -612,3 +609,6 @@ function setupOrdenar(btnId, dropdownId, opcionClass) {
 
 setupOrdenar('btnOrdenar', 'ordenarDropdown', 'ordenar-opcion');
 setupOrdenar('btnOrdenarMovil', 'ordenarDropdownMovil', 'ordenar-opcion-movil');
+
+actualizarFill();
+inicializarFiltros();
