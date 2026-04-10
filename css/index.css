@@ -815,8 +815,14 @@ filter: brightness(1);
   flex-shrink: 0;
 }
 
-.info-item span {
-  color: #D8E4F0 !important; /* Blanco azulado suave */
+.info-item span,
+.info-item .link-ubicacion {
+  color: #D8E4F0 !important;
+  text-decoration: none;
+}
+
+.info-item .link-ubicacion:hover {
+  text-decoration: underline;
 }
 
 /* Ocultar emojis si llegaran a aparecer */
