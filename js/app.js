@@ -70,7 +70,7 @@ function renderPropiedades(){
 
 <div class="card-info">
 
-<h3>$${propiedad.price}</h3>
+<h3>USD ${propiedad.price.toLocaleString('es-AR')}</h3>
 
 <p>${propiedad.Tipos.name} • ${propiedad.Operaciones.name}</p>
 
@@ -88,6 +88,14 @@ function renderPropiedades(){
   })
 
   setTimeout(ajustarAlturaInicial, 50)
+
+  const btnContainer = document.querySelector(".ver-mas-container")
+
+if(propiedadesGlobal.length <= 4){
+  btnContainer.style.display = "none"
+}else{
+  btnContainer.style.display = "block"
+}
 
 }
 
