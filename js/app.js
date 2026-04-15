@@ -70,7 +70,11 @@ function renderPropiedades(){
 
 <div class="card-info">
 
-<h3>USD ${propiedad.price.toLocaleString('es-AR')}</h3>
+<h3>
+  ${propiedad.Moneda?.trim().toUpperCase() === 'USD' ? 'USD' : '$'} 
+  ${propiedad.price.toLocaleString('es-AR')}
+</h3>
+
 
 <p>${propiedad.Tipos.name} • ${propiedad.Operaciones.name}</p>
 

@@ -133,7 +133,10 @@ if (propiedad.Imagenes && propiedad.Imagenes.length > 0) {
         <div class="card-propiedad" onclick="verPropiedad(${propiedad.id})" style="cursor:pointer;">
             <img src="${imagenUrl}" alt="Imagen de propiedad">
             <div class="card-info">
-                <h3 class="precio">$${propiedad.price}</h3>
+                <h3 class="precio">
+                ${propiedad.Moneda === 'USD' ? 'USD' : '$'} 
+                ${propiedad.price.toLocaleString('es-AR')}
+                </h3>
                 <p class="detalles">${nombreTipo} • ${nombreOperacion} • ${cantDormitorios} Dorm.</p>
                 <p class="ubicacion">${nombreBarrio}</p>
             </div>

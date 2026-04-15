@@ -60,8 +60,8 @@ function renderizarPropiedad(p) {
   document.getElementById('detalleBarrio').textContent = p.Barrios?.name || ''
 
   // Precio
-  document.getElementById('detallePrecio').textContent = `$${Number(p.price).toLocaleString('es-AR')}`
-
+document.getElementById('detallePrecio').textContent =
+  `${p.Moneda === 'USD' ? 'USD' : '$'} ${Number(p.price).toLocaleString('es-AR')}`
   // Características (ocultar si no tiene valor)
   if (p.bedrooms) {
     document.getElementById('cantDormitorios').textContent = p.bedrooms
