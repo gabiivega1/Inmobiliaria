@@ -110,9 +110,9 @@ if (p.TotalMeters) {
 
 function optimizarImagen(url){
   if(url.includes("?")){
-    return url + "&w=800&q=70&auto=format"
+    return url + "&w=800&q_auto,f_auto"
   }
-  return url + "?w=800&q=70&auto=format"
+  return url + "?w=800&q_auto,f_auto"
 }
 
 
@@ -135,7 +135,9 @@ function renderizarGaleria() {
   thumbsContainer.innerHTML = ''
   imagenes.forEach((img, i) => {
     const thumb = document.createElement('img')
-    thumb.src = optimizarImagen(img.image_url)
+thumb.dataset.src = optimizarImagen(img.image_url) + "&w=200"
+thumb.src = ""
+
     thumb.alt = `Foto ${i + 1}`
     thumb.className = 'thumb' + (i === 0 ? ' activa' : '')
     thumb.onclick = () => irAImagen(i)
@@ -159,6 +161,12 @@ function irAImagen(i) {
     imgPrincipal.src = optimizarImagen(imagenes[indiceActual].image_url)
     imgPrincipal.style.opacity = '1'
   }, 150)
+
+  const thumb = document.querySelectorAll('.thumb')[i]
+
+if(thumb && !thumb.src){
+  thumb.src = thumb.dataset.src
+}
 
   actualizarThumbs()
   actualizarContador()

@@ -174,7 +174,7 @@ body {
 }
 
 .galeria-thumbnails {
-  display: flex;
+  display: none;
   gap: 8px;
   margin-top: 10px;
   overflow-x: auto;
