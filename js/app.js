@@ -31,6 +31,13 @@ async function cargarPropiedades() {
 
 }
 
+function optimizarCloudinary(url){
+  if(!url.includes('res.cloudinary.com')) return url
+
+  return url.replace('/upload/', '/upload/w_400,q_auto,f_auto/')
+}
+
+
 function optimizarImagen(url){
 
   if(url.includes("?")){
@@ -66,7 +73,7 @@ function renderPropiedades(){
     const card = `
 <div class="card" onclick="verPropiedad(${propiedad.id})">
 
-<img src="${optimizarImagen(imagenPrincipal.image_url)}">
+<img src="${optimizarCloudinary(imagenPrincipal.image_url)}">
 
 <div class="card-info">
 

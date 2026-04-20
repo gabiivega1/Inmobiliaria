@@ -100,6 +100,11 @@ if (p.TotalMeters) {
   // Descripción
   document.getElementById('detalleDescripcion').textContent = p.description || 'Sin descripción disponible.'
   
+imagenes.forEach(img => {
+  const i = new Image()
+  i.src = optimizarImagen(img.image_url)
+})
+
   // Galería
   renderizarGaleria()
 
@@ -109,10 +114,9 @@ if (p.TotalMeters) {
 }
 
 function optimizarImagen(url){
-  if(url.includes("?")){
-    return url + "&w=800&q_auto,f_auto"
-  }
-  return url + "?w=800&q_auto,f_auto"
+  if(!url.includes('res.cloudinary.com')) return url
+
+  return url.replace('/upload/', '/upload/w_1200,q_auto,f_auto/')
 }
 
 
@@ -135,7 +139,7 @@ function renderizarGaleria() {
   thumbsContainer.innerHTML = ''
   imagenes.forEach((img, i) => {
     const thumb = document.createElement('img')
-thumb.dataset.src = optimizarImagen(img.image_url) + "&w=200"
+thumb.dataset.src = img.image_url.replace('/upload/', '/upload/w_200,q_auto,f_auto/')
 thumb.src = ""
 
     thumb.alt = `Foto ${i + 1}`
