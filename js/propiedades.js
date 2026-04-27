@@ -132,7 +132,14 @@ function renderizarGaleria() {
   if (imagenes.length === 0) return
 
   // Imagen principal
-  imgPrincipal.src = optimizarImagen(imagenes[0].image_url)
+const url = optimizarImagen(imagenes[0].image_url)
+
+imgPrincipal.src = url
+
+imgPrincipal.parentElement.style.setProperty(
+  '--bg-img',
+  `url(${url})`
+);
   actualizarContador()
 
   // Thumbnails
@@ -162,7 +169,14 @@ function irAImagen(i) {
 
   imgPrincipal.style.opacity = '0'
   setTimeout(() => {
-    imgPrincipal.src = optimizarImagen(imagenes[indiceActual].image_url)
+    const url = optimizarImagen(imagenes[indiceActual].image_url)
+
+imgPrincipal.src = url
+
+imgPrincipal.parentElement.style.setProperty(
+  '--bg-img',
+  `url(${url})`
+)
     imgPrincipal.style.opacity = '1'
   }, 150)
 
