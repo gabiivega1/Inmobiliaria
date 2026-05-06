@@ -121,8 +121,11 @@ function mostrarResultados(propiedades) {
 
 if (propiedad.Imagenes && propiedad.Imagenes.length > 0) {
   
-  const urlOriginal = imagenPrincipal ? imagenPrincipal.image_url : propiedad.Imagenes[0].image_url;
+  const imagenPrincipal = propiedad.Imagenes.find(img => img.is_main);
 
+  const urlOriginal = imagenPrincipal 
+    ? imagenPrincipal.image_url 
+    : propiedad.Imagenes[0].image_url;
   imagenUrl = optimizarImagen(urlOriginal);
 }
 
