@@ -65,10 +65,10 @@ async function cargarResultados(resetearPagina = false) {
     .from('Propiedades')
     .select(`
       *,
-      Barrios!inner (name),
+      Barrios (name),
       Tipos (name),
       Operaciones (name),
-      Imagenes!inner (image_url, is_main)
+      Imagenes (image_url, is_main)
     `, { count: 'exact' });
 
   if (operacion) query = query.eq('Operaciones_id', operacion);
@@ -88,6 +88,9 @@ async function cargarResultados(resetearPagina = false) {
   query = query.range(inicioRango, finRango);
 
   const { data, count, error } = await query;
+
+  console.log("DATA:", data);
+console.log("ERROR:", error);
 
   if (error) {
     console.log("Error cargando resultados:", error);
@@ -117,7 +120,7 @@ function mostrarResultados(propiedades) {
     let imagenUrl = 'https://via.placeholder.com/300x200?text=Sin+Imagen';
 
 if (propiedad.Imagenes && propiedad.Imagenes.length > 0) {
-  const imagenPrincipal = propiedad.Imagenes.find(img => img.is_main);
+  
   const urlOriginal = imagenPrincipal ? imagenPrincipal.image_url : propiedad.Imagenes[0].image_url;
 
   imagenUrl = optimizarImagen(urlOriginal);
@@ -135,7 +138,7 @@ if (propiedad.Imagenes && propiedad.Imagenes.length > 0) {
             <div class="card-info">
                 <h3 class="precio">
                 ${propiedad.Moneda === 'USD' ? 'USD' : '$'} 
-                ${propiedad.price.toLocaleString('es-AR')}
+                ${propiedad.price ? propiedad.price.toLocaleString('es-AR') : 'Consultar'}
                 </h3>
                 <p class="detalles">${nombreTipo} • ${nombreOperacion} • ${cantDormitorios} Dorm.</p>
                 <p class="ubicacion">${nombreBarrio}</p>
