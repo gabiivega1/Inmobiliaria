@@ -106,7 +106,7 @@ console.log("ERROR:", error);
 }
 
 
-function optimizarImagen(url){ if(url.includes("?")){ return url + "&w=800&q=70&auto=format" } return url + "?w=800&q=70&auto=format" }
+function optimizarImagen(url){ if(url.includes("res.cloudinary.com")){ return url.replace("/upload/", "/upload/w_800,q_70,f_jpg/") } return url }
 
 function mostrarResultados(propiedades) {
   const contenedor = document.getElementById("contenedorResultados");
