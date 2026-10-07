@@ -34,7 +34,7 @@ async function cargarPropiedades() {
 function optimizarCloudinary(url){
   if(!url.includes('res.cloudinary.com')) return url
 
-  return url.replace('/upload/', '/upload/w_400,q_auto,f_auto/')
+  return url.replace('/upload/', '/upload/w_400,q_auto,f_jpg/')
 }
 
 
